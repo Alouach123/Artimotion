@@ -9,7 +9,7 @@ body {
 @layer base {
   :root {
     --background: 0 0% 100%; /* White */
-    --foreground: 222 84% 4.9%; /* Dark Blue */
+    --foreground: 222 84% 4.9%; /* Dark Blue - Kept for general text */
 
     --card: 0 0% 100%; /* White cards */
     --card-foreground: 222 84% 4.9%; /* Dark Blue for card text */
@@ -29,7 +29,7 @@ body {
 
     /* Accent is Yellow */
     --accent: 48 100% 39%; /* Vibrant Yellow - rgb(200, 160, 0) */
-    --accent-foreground: 222 84% 4.9%; /* Dark Blue text for contrast on yellow */
+    --accent-foreground: 222 47.4% 11.2%; /* Dark Blue text for contrast on yellow */
 
     --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%; /* Light text for destructive */
@@ -52,8 +52,8 @@ body {
     --sidebar-foreground: 210 40% 98%; /* Light Gray text on Sidebar */
     --sidebar-primary: 48 100% 39%; /* Yellow for Sidebar Primary items */
     --sidebar-primary-foreground: 222 84% 4.9%; /* Darker text for yellow */
-    --sidebar-accent: 220 70% 55%; /* Lighter blue for Sidebar Accent */
-    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-accent: 48 100% 39%; /* Yellow for Sidebar Accent */
+    --sidebar-accent-foreground: 222 84% 4.9%; /* Darker text for yellow accent */
     --sidebar-border: 220 40% 25%;
     --sidebar-ring: 48 100% 39%; /* Yellow */
   }
@@ -69,7 +69,7 @@ body {
     --popover-foreground: 210 40% 98%;
 
     /* Primary is Yellow in dark mode for buttons etc. */
-    --primary: 48 100% 42%; /* Brighter Yellow */
+    --primary: 48 100% 45%; /* Brighter Yellow */
     --primary-foreground: 222 84% 4.9%; /* Very Dark Blue/Black for text on yellow */
 
     --secondary: 217.2 32.6% 17.5%; /* Muted Dark Blue */

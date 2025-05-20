@@ -18,7 +18,7 @@ export default function HomePage() {
       description: "Modèles d'IA avancés pour des résultats de haute qualité et des animations uniques.",
     },
     {
-      icon: Sparkles, 
+      icon: Sparkles,
       title: "Animation IA Unique",
       description: "Notre processus innovant d'isolation de personnage et d'animation par IA donne vie à vos œuvres d'une manière totalement nouvelle.",
     },
@@ -38,18 +38,18 @@ export default function HomePage() {
   ];
 
   const artExamples = [
-    { name: "The Scream", src: "https://i.guim.co.uk/img/media/8a840f693b91fe67d42555b24c6334e9298f4680/0_1476_2429_1456/master/2429.jpg?width=1900&dpr=2&s=none&crop=none", alt: "The Scream par Edvard Munch", hint: "scream painting" },
     { name: "Girl with a Pearl Earring", src: "https://upload.wikimedia.org/wikipedia/commons/0/0f/1665_Girl_with_a_Pearl_Earring.jpg", alt: "Girl with a Pearl Earring par Johannes Vermeer", hint: "girl portrait" },
+    { name: "Napoleon Crossing the Alps", src: "https://upload.wikimedia.org/wikipedia/commons/f/fd/David_-_Napoleon_crossing_the_Alps_-_Malmaison2.jpg", alt: "Napoleon Crossing the Alps par Jacques-Louis David", hint: "napoleon horse" },
+    { name: "George Washington", src: "https://upload.wikimedia.org/wikipedia/commons/1/12/Gilbert_Stuart%2C_George_Washington_%28Lansdowne_portrait%2C_1796%29.jpg", alt: "Portrait de George Washington par Gilbert Stuart", hint: "president portrait" },
+    { name: "LOUIS XIV", src: "https://hyacinthe-rigaud.com/media/djcatalog2/images/item/16/louis-xivc_f.jpg", alt: "Portrait de Louis XIV par Hyacinthe Rigaud", hint: "king portrait" },
+    { name: "La reine Marie-Antoinette", src: "https://fr.muzeo.com/sites/default/files/styles/image_basse_def/public/oeuvres/peinture/classique/la_reine_marieantoinette_dit_46976.jpg?itok=JFTcCunz", alt: "La reine Marie-Antoinette par Élisabeth Vigée Le Brun", hint: "queen portrait" },
+    { name: "The Arnolfini Portrait", src: "https://i.guim.co.uk/img/media/90c361caa6a48d2e45fe2204923c74c17866b835/0_31_3286_4430/master/3286.jpg?width=700&quality=85&auto=format&fit=max&s=9ee8c90d9827d5c17edc15889413f6ce", alt: "The Arnolfini Portrait par Jan van Eyck", hint: "portrait couple" },
+    { name: "The Scream", src: "https://i.guim.co.uk/img/media/8a840f693b91fe67d42555b24c6334e9298f4680/0_1476_2429_1456/master/2429.jpg?width=1900&dpr=2&s=none&crop=none", alt: "The Scream par Edvard Munch", hint: "scream painting" },
     { name: "Washington Crossing the Delaware", src: "https://www.wga.hu/art/l/leutze/delaware.jpg", alt: "Washington Crossing the Delaware par Emanuel Leutze", hint: "historical painting" },
     { name: "The Death of Socrates", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/David_-_The_Death_of_Socrates.jpg/1200px-David_-_The_Death_of_Socrates.jpg", alt: "The Death of Socrates par Jacques-Louis David", hint: "philosophy painting" },
     { name: "The School of Athens", src: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXPV6Fg4K83hspavmd5VaTiDBRyCcwGe2YTedYAD5C2Im6Sn82WfnLQQn1cOZEQOdI8ydUJa3AHZKyRVN-3__rFTweS5cZswmoaNXNRd2n0MsuXU7G_1872VXh_QkJgrDWTml8Reu1Uqvk/w1200-h630-p-k-no-nu/School_of_Athens.jpg", alt: "The School of Athens par Raphael", hint: "renaissance fresco" },
-    { name: "Napoleon Crossing the Alps", src: "https://upload.wikimedia.org/wikipedia/commons/f/fd/David_-_Napoleon_crossing_the_Alps_-_Malmaison2.jpg", alt: "Napoleon Crossing the Alps par Jacques-Louis David", hint: "napoleon horse" },
-    { name: "The Arnolfini Portrait", src: "https://i.guim.co.uk/img/media/90c361caa6a48d2e45fe2204923c74c17866b835/0_31_3286_4430/master/3286.jpg?width=700&quality=85&auto=format&fit=max&s=9ee8c90d9827d5c17edc15889413f6ce", alt: "The Arnolfini Portrait par Jan van Eyck", hint: "portrait couple" },
     { name: "The Last Supper", src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg/1200px-The_Last_Supper_-_Leonardo_Da_Vinci_-_High_Resolution_32x16.jpg", alt: "The Last Supper par Leonardo da Vinci", hint: "religious painting" },
     { name: "Ludwig van Beethoven", src: "https://transcode-v2.app.engoo.com/image/fetch/f_auto,c_lfill,w_300,dpr_3/https://assets.app.engoo.com/images/1FBGLJLA1mTEKyeDMEvTeZ.jpeg", alt: "Portrait de Ludwig van Beethoven par Joseph Karl Stieler", hint: "beethoven portrait" },
-    { name: "La reine Marie-Antoinette", src: "https://fr.muzeo.com/sites/default/files/styles/image_basse_def/public/oeuvres/peinture/classique/la_reine_marieantoinette_dit_46976.jpg?itok=JFTcCunz", alt: "La reine Marie-Antoinette par Élisabeth Vigée Le Brun", hint: "queen portrait" },
-    { name: "LOUIS XIV", src: "https://hyacinthe-rigaud.com/media/djcatalog2/images/item/16/louis-xivc_f.jpg", alt: "Portrait de Louis XIV par Hyacinthe Rigaud", hint: "king portrait" },
-    { name: "George Washington", src: "https://upload.wikimedia.org/wikipedia/commons/1/12/Gilbert_Stuart%2C_George_Washington_%28Lansdowne_portrait%2C_1796%29.jpg", alt: "Portrait de George Washington par Gilbert Stuart", hint: "president portrait" },
   ];
 
   return (
@@ -150,7 +150,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {artExamples.map((art, index) => (
                 <Card key={index} className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col">
-                  <div className="relative w-full aspect-[3/2]">
+                  <div className="relative w-full aspect-[4/5]"> {/* Adjusted aspect ratio for taller images */}
                     <Image 
                       src={art.src} 
                       alt={art.alt} 
