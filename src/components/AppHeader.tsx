@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { Button } from '@/components/ui/button';
 import { Wand2, LifeBuoy } from 'lucide-react';
-import { SupportDialog } from './SupportDialog';
 
 export function AppHeader() {
   return (
@@ -22,7 +21,12 @@ export function AppHeader() {
               Créer une Animation
             </Button>
           </Link>
-          <SupportDialog />
+          <Link href="/support" passHref legacyBehavior>
+            <Button variant="ghost" className="text-foreground hover:bg-primary/10 hover:text-primary">
+              <LifeBuoy className="mr-2 h-5 w-5" />
+              Support
+            </Button>
+          </Link>
           <ThemeToggleButton />
         </div>
       </div>
