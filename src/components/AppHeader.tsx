@@ -3,7 +3,8 @@ import { ArtimotionLogo } from '@/components/ArtimotionLogo';
 import Link from 'next/link';
 import { ThemeToggleButton } from './theme-toggle-button';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
+import { Wand2, LifeBuoy } from 'lucide-react';
+import { SupportDialog } from './SupportDialog';
 
 export function AppHeader() {
   return (
@@ -21,6 +22,7 @@ export function AppHeader() {
               Créer une Animation
             </Button>
           </Link>
+          <SupportDialog />
           <ThemeToggleButton />
         </div>
       </div>
