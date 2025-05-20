@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit } from 'lucide-react';
+import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
   const features = [
@@ -25,11 +25,11 @@ export default function HomePage() {
   ];
 
   const howItWorksSteps = [
-    { icon: UploadCloud, title: "1. Téléversez votre image", description: "Importez une image artistique contenant un personnage et son arrière-plan." },
-    { icon: Wand2, title: "2. Amélioration IA", description: "Notre IA améliore la qualité de votre image, la débruite et la rend plus réaliste." },
-    { icon: Scissors, title: "3. Séparation Magique", description: "L'IA isole le personnage et complète intelligemment l'arrière-plan." },
-    { icon: Sparkles, title: "4. Analyse Créative", description: "Un scénario logique et imaginatif est créé pour lier personnage et décor." },
-    { icon: Film, title: "5. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments avec fluidité." },
+    { id: 1, icon: UploadCloud, title: "1. Téléversez votre image", description: "Importez une image artistique contenant un personnage et son arrière-plan." },
+    { id: 2, icon: Wand2, title: "2. Amélioration IA", description: "Notre IA améliore la qualité de votre image, la débruite et la rend plus réaliste." },
+    { id: 3, icon: Scissors, title: "3. Séparation Magique", description: "L'IA isole le personnage et complète intelligemment l'arrière-plan." },
+    { id: 4, icon: Sparkles, title: "4. Analyse Créative", description: "Un scénario logique et imaginatif est créé pour lier personnage et décor." },
+    { id: 5, icon: Film, title: "5. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments avec fluidité." },
   ];
 
   const artExamples = [
@@ -48,7 +48,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="text-center py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-accent/10 rounded-xl shadow-lg mb-16">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            <span className="text-accent">
               Artimotion
             </span>: Donnez Vie à Votre Art
           </h1>
@@ -56,7 +56,7 @@ export default function HomePage() {
             Transformez vos images statiques en animations captivantes et explorez la fusion de l'art classique et de la technologie moderne. Libérez votre créativité avec la puissance de l'intelligence artificielle.
           </p>
           <Link href="/create-animation" passHref>
-            <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
               <Wand2 className="mr-2 h-5 w-5" />
               Commencer à Animer
             </Button>
@@ -156,7 +156,7 @@ export default function HomePage() {
             </div>
             <div className="text-center mt-12">
               <Link href="/create-animation" passHref>
-                <Button size="lg" variant="default" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow">
+                <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
                   <Palette className="mr-2 h-5 w-5" />
                   Animez Votre Propre Œuvre
                 </Button>
