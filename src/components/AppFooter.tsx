@@ -18,14 +18,17 @@ export function AppFooter() {
 
           {/* Colonne 2: Équipe du Projet */}
           <div className="text-center md:text-left">
-            <h3 className="text-lg font-semibold text-foreground mb-2">Projet de Module "Computer Vision"</h3>
-            <ul className="text-sm space-y-1">
+            <h3 className="text-lg font-semibold text-foreground mb-3">Projet de Module "Computer Vision"</h3>
+            <h4 className="text-md font-medium text-foreground mb-1">Équipe :</h4>
+            <ul className="text-sm space-y-1 list-disc list-inside ml-4">
               <li>ALOUACH Abdennour</li>
               <li>EL HAMDAOUI Rania</li>
               <li>ELGARRAB Idris</li>
               <li>HAMMOUCHI Ouissal</li>
             </ul>
-            <p className="text-sm mt-2">Supervisé par : Prof. CHARROUD Anas</p>
+            <p className="text-sm mt-3">
+              <span className="font-medium text-foreground">Supervisé par :</span> Prof. CHARROUD Anas
+            </p>
           </div>
 
           {/* Colonne 3: Réseaux Sociaux */}
