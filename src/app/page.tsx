@@ -3,9 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { AppHeader } from '@/components/AppHeader';
-import { AppFooter } from '@/components/AppFooter';
-import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit } from 'lucide-react';
+import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
   const features = [
@@ -35,18 +33,18 @@ export default function HomePage() {
   ];
 
   const artExamples = [
-    { src: "https://placehold.co/600x400.png?text=Art+Généré+par+IA+1", alt: "Exemple d'art généré par IA 1", hint: "abstract colorful" },
-    { src: "https://placehold.co/600x400.png?text=Classique+Revisité+1", alt: "Exemple d'art classique revisité par IA 1", hint: "classic painting" },
-    { src: "https://placehold.co/600x400.png?text=Animation+Concept+1", alt: "Concept d'animation IA 1", hint: "fantasy animation" },
-    { src: "https://placehold.co/600x400.png?text=Personnage+Animé", alt: "Personnage animé par IA", hint: "animated character" },
-    { src: "https://placehold.co/600x400.png?text=Paysage+Dynamique", alt: "Paysage transformé en animation", hint: "dynamic landscape" },
-    { src: "https://placehold.co/600x400.png?text=Création+Originale+IA", alt: "Création originale générée par IA", hint: "ai original" },
+    { src: "https://placehold.co/600x400.png", alt: "Exemple d'art généré par IA 1", hint: "abstract colorful" },
+    { src: "https://placehold.co/600x400.png", alt: "Exemple d'art classique revisité par IA 1", hint: "classic painting" },
+    { src: "https://placehold.co/600x400.png", alt: "Concept d'animation IA 1", hint: "fantasy animation" },
+    { src: "https://placehold.co/600x400.png", alt: "Personnage animé par IA", hint: "animated character" },
+    { src: "https://placehold.co/600x400.png", alt: "Paysage dynamique", hint: "dynamic landscape" },
+    { src: "https://placehold.co/600x400.png", alt: "Création originale IA", hint: "ai original" },
   ];
 
   return (
     <>
-      {/* AppHeader et AppFooter sont dans RootLayout et s'appliqueront automatiquement */}
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      {/* AppHeader et AppFooter sont maintenant dans RootLayout */}
+      <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <section className="text-center py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-accent/10 rounded-xl shadow-lg mb-16">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
@@ -92,11 +90,11 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <Image 
-                  src="https://placehold.co/800x600.png?text=AI+Art+Fusion" 
+                  src="https://placehold.co/800x600.png" 
                   alt="Concept d'art fusionnant IA et techniques classiques" 
                   width={800} 
                   height={600} 
-                  className="rounded-lg shadow-xl object-cover data-ai-hint='ai art concept'"
+                  className="rounded-lg shadow-xl object-cover"
                   data-ai-hint="ai art concept"
                 />
               </div>
@@ -166,9 +164,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        
-      </main>
-      <AppFooter />
+      </div>
     </>
   );
 }

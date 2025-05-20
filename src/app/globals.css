@@ -8,42 +8,42 @@ body {
 
 @layer base {
   :root {
-    --background: 270 60% 97%; /* Très clair lavande/mauve */
-    --foreground: 270 10% 20%; /* Violet foncé grisâtre */
+    --background: 275 60% 97%; /* Very light mauve/lavender */
+    --foreground: 275 20% 25%; /* Dark, slightly desaturated mauve */
 
-    --card: 270 50% 99%; /* Presque blanc avec une teinte mauve */
-    --card-foreground: 270 10% 20%;
+    --card: 275 50% 99%; /* Almost white with a hint of mauve */
+    --card-foreground: 275 20% 25%;
 
-    --popover: 270 50% 99%;
-    --popover-foreground: 270 10% 20%;
+    --popover: 275 50% 99%;
+    --popover-foreground: 275 20% 25%;
 
-    --primary: 275 65% 55%; /* Mauve principal vibrant */
-    --primary-foreground: 300 20% 98%; /* Blanc cassé rosé */
+    --primary: 270 70% 55%; /* Richer Mauve */
+    --primary-foreground: 270 80% 98%; /* Lighter foreground for primary */
 
-    --secondary: 270 30% 90%; /* Lavande clair grisâtre */
-    --secondary-foreground: 270 10% 30%; /* Violet moyen-foncé */
+    --secondary: 275 40% 90%; /* Lighter, softer mauve */
+    --secondary-foreground: 275 20% 35%; /* Darker mauve for secondary text */
 
-    --muted: 270 30% 90%;
-    --muted-foreground: 270 10% 45%; /* Violet grisâtre moyen */
+    --muted: 275 30% 92%; /* Very light, muted mauve */
+    --muted-foreground: 275 15% 50%; /* Grayish mauve */
 
-    --accent: 290 75% 60%; /* Rose-mauve vif pour accentuation */
-    --accent-foreground: 300 20% 98%; /* Blanc cassé rosé */
+    --accent: 300 70% 60%; /* A complementary magenta/pinkish-purple for accents */
+    --accent-foreground: 300 80% 98%; /* Light foreground for accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 270 25% 85%; /* Bordure lavande clair */
-    --input: 270 25% 90%; /* Input lavande clair */
-    --ring: 275 65% 55%; /* Couleur primaire pour les anneaux */
+    --border: 275 30% 85%; /* Bordure lavande clair */
+    --input: 275 30% 90%; /* Input lavande clair */
+    --ring: 270 70% 55%; /* Primary mauve for rings */
 
     --radius: 0.5rem;
 
     /* Chart Colors (Light Theme) */
-    --chart-1: 275 65% 55%; /* primary */
-    --chart-2: 290 75% 60%; /* accent */
+    --chart-1: 270 70% 55%; /* primary */
+    --chart-2: 300 70% 60%; /* accent */
     --chart-3: 260 70% 65%; /* Un violet plus bleuté */
-    --chart-4: 300 60% 70%;  /* Un rose-mauve plus clair */
-    --chart-5: 270 50% 70%; /* Un mauve plus doux */
+    --chart-4: 280 60% 70%;  /* Un lilas plus clair */
+    --chart-5: 275 50% 75%; /* Un mauve plus doux */
 
     /* Sidebar variables */
     --sidebar-background: 270 15% 18%; /* Mauve très foncé pour la barre latérale */
@@ -57,40 +57,40 @@ body {
   }
 
   .dark {
-    --background: 270 15% 10%; /* Violet très foncé, presque noir */
-    --foreground: 270 25% 90%; /* Lavande très clair */
+    --background: 275 10% 12%; /* Very dark, slightly desaturated mauve */
+    --foreground: 275 30% 90%; /* Light lavender */
 
-    --card: 270 15% 15%; /* Violet foncé pour les cartes */
-    --card-foreground: 270 25% 90%;
+    --card: 275 10% 18%; /* Darker mauve for cards */
+    --card-foreground: 275 30% 90%;
 
-    --popover: 270 15% 15%; 
-    --popover-foreground: 270 25% 90%;
+    --popover: 275 10% 18%; 
+    --popover-foreground: 275 30% 90%;
 
-    --primary: 275 70% 65%; /* Mauve plus clair et vibrant */
-    --primary-foreground: 270 10% 98%; /* Presque blanc */
+    --primary: 270 75% 70%; /* Lighter, vibrant mauve for dark mode */
+    --primary-foreground: 270 15% 10%; /* Dark foreground for primary */
 
-    --secondary: 270 10% 20%; /* Violet très foncé grisâtre */
-    --secondary-foreground: 270 25% 90%;
+    --secondary: 275 15% 25%; /* Dark, muted mauve */
+    --secondary-foreground: 275 30% 85%; /* Lighter mauve for secondary text */
 
-    --muted: 270 10% 20%;
-    --muted-foreground: 270 15% 65%; /* Lavande grisâtre moyen */
+    --muted: 275 15% 25%;
+    --muted-foreground: 275 20% 60%; /* Muted lavender */
 
-    --accent: 290 80% 70%; /* Rose-mauve plus clair et vif */
-    --accent-foreground: 270 10% 10%; /* Très foncé pour contraste */
+    --accent: 300 75% 75%; /* Lighter, vivid pinkish-purple for accents */
+    --accent-foreground: 300 10% 15%; /* Dark foreground for accent */
 
     --destructive: 0 62.8% 30.6%; 
     --destructive-foreground: 0 0% 98%;
 
-    --border: 270 10% 25%; /* Bordure violet foncé */
-    --input: 270 10% 25%; /* Input violet foncé */
-    --ring: 275 70% 65%; /* Primaire plus clair pour les anneaux */
+    --border: 275 10% 30%; /* Bordure violet foncé */
+    --input: 275 10% 30%; /* Input violet foncé */
+    --ring: 270 75% 70%; /* Lighter primary mauve for rings */
     
     /* Chart Colors (Dark Theme) */
-    --chart-1: 275 70% 65%; /* primary */
-    --chart-2: 290 80% 70%; /* accent */
+    --chart-1: 270 75% 70%; /* primary */
+    --chart-2: 300 75% 75%; /* accent */
     --chart-3: 260 75% 70%; /* Violet plus bleuté clair */
     --chart-4: 300 70% 75%;  /* Rose-mauve plus clair */
-    --chart-5: 270 60% 80%; /* Mauve doux et clair */
+    --chart-5: 275 55% 80%; /* Mauve doux et clair */
 
     /* Sidebar variables - can remain similar or be adjusted if needed */
     --sidebar-background: 270 10% 8%; 
@@ -115,7 +115,7 @@ body {
     display: flex;
     flex-direction: column;
   }
-  main {
+  main { /* Added to ensure main content area takes up available space */
     flex-grow: 1;
   }
 }

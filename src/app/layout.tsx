@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AppHeader } from '@/components/AppHeader';
+import { AppFooter } from '@/components/AppFooter';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Artimotion - Transformez votre art en animation',
   description: 'Transformez vos œuvres d\'art en animations captivantes avec Artimotion !',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -33,7 +38,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AppHeader />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <AppFooter />
           <Toaster />
         </ThemeProvider>
       </body>
