@@ -43,7 +43,6 @@ export default function HomePage() {
 
   return (
     <>
-      {/* AppHeader et AppFooter sont maintenant dans RootLayout */}
       <div className="container mx-auto px-4 py-8">
         {/* Hero Section */}
         <section className="text-center py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-accent/10 rounded-xl shadow-lg mb-16">
@@ -56,7 +55,7 @@ export default function HomePage() {
             Transformez vos images statiques en animations captivantes et explorez la fusion de l'art classique et de la technologie moderne. Libérez votre créativité avec la puissance de l'intelligence artificielle.
           </p>
           <Link href="/create-animation" passHref>
-            <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" variant="default" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
               <Wand2 className="mr-2 h-5 w-5" />
               Commencer à Animer
             </Button>
@@ -156,7 +155,7 @@ export default function HomePage() {
             </div>
             <div className="text-center mt-12">
               <Link href="/create-animation" passHref>
-                <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
+                <Button size="lg" variant="default" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
                   <Palette className="mr-2 h-5 w-5" />
                   Animez Votre Propre Œuvre
                 </Button>

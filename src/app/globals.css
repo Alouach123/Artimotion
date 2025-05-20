@@ -8,50 +8,50 @@ body {
 
 @layer base {
   :root {
-    --background: 240 25% 96%; /* Light Gray - was 0 0% 100% (White) */
-    --foreground: 220 60% 20%; /* Dark Blue for text */
+    --background: 0 0% 100%; /* White */
+    --foreground: 222 84% 4.9%; /* Dark Blue */
 
     --card: 0 0% 100%; /* White cards */
-    --card-foreground: 220 60% 20%; /* Dark Blue for card text */
+    --card-foreground: 222 84% 4.9%; /* Dark Blue for card text */
 
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 220 60% 20%; /* Dark Blue */
+    --popover-foreground: 222 84% 4.9%; /* Dark Blue */
 
-    /* Primary will be Dark Blue for other interactive elements if needed */
-    --primary: 220 70% 45%; /* Main Blue */
-    --primary-foreground: 0 0% 100%; /* White Text on Blue */
+    /* Primary will be Dark Blue */
+    --primary: 222 47.4% 11.2%; /* Dark Blue */
+    --primary-foreground: 210 40% 98%; /* Light text on Dark Blue */
 
-    --secondary: 220 20% 90%; /* Light Grayish Blue */
-    --secondary-foreground: 220 40% 30%; /* Darker Grayish Blue Text */
+    --secondary: 210 40% 96.1%; /* Light Grayish Blue */
+    --secondary-foreground: 222.2 47.4% 11.2%; /* Dark Blue Text */
 
-    --muted: 220 20% 94%; /* Very Light Muted Blue/Gray */
-    --muted-foreground: 220 15% 45%; /* Grayer text */
+    --muted: 210 40% 96.1%; /* Light Grayish Blue */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Grayer text */
 
-    /* Accent is the Yellow for branding and main CTAs */
+    /* Accent is Yellow */
     --accent: 48 100% 39%; /* Vibrant Yellow - rgb(200, 160, 0) */
-    --accent-foreground: 220 50% 10%; /* Darker blue/black for contrast on yellow */
+    --accent-foreground: 222 84% 4.9%; /* Dark Blue text for contrast on yellow */
 
     --destructive: 0 84.2% 60.2%; /* Red */
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 98%; /* Light text for destructive */
 
-    --border: 220 20% 88%; /* Light Gray border */
-    --input: 220 20% 95%; /* Slightly off-white for input fields */
+    --border: 214.3 31.8% 91.4%; /* Light Gray border */
+    --input: 214.3 31.8% 91.4%; /* Light Gray for input fields */
     --ring: 48 100% 39%; /* Yellow for focus rings, matching accent */
 
     --radius: 0.5rem;
 
     /* Chart Colors (Light Theme) */
-    --chart-1: hsl(var(--primary)); /* Main Blue */
+    --chart-1: hsl(var(--primary)); /* Dark Blue */
     --chart-2: hsl(var(--accent)); /* Accent Yellow */
     --chart-3: 210 70% 60%; /* Another Blue shade */
     --chart-4: 35 90% 60%;  /* Orange (can be adjusted if needed) */
     --chart-5: 160 60% 45%; /* Teal/Greenish Blue (can be adjusted) */
     
     /* Sidebar variables (Light Theme) */
-    --sidebar-background: 220 60% 15%; /* Dark Blue for Sidebar */
-    --sidebar-foreground: 220 10% 95%; /* Light Gray text on Sidebar */
+    --sidebar-background: 222 47.4% 11.2%; /* Dark Blue for Sidebar */
+    --sidebar-foreground: 210 40% 98%; /* Light Gray text on Sidebar */
     --sidebar-primary: 48 100% 39%; /* Yellow for Sidebar Primary items */
-    --sidebar-primary-foreground: 220 50% 10%; /* Darker text for yellow */
+    --sidebar-primary-foreground: 222 84% 4.9%; /* Darker text for yellow */
     --sidebar-accent: 220 70% 55%; /* Lighter blue for Sidebar Accent */
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 220 40% 25%;
@@ -59,34 +59,34 @@ body {
   }
 
   .dark {
-    --background: 220 70% 12%; /* Very Dark Navy Blue */
-    --foreground: 210 40% 96%; /* Very Light Grey/Almost White */
+    --background: 222 84% 4.9%; /* Very Dark Blue */
+    --foreground: 210 40% 98%; /* Very Light Grey/Almost White */
 
-    --card: 220 60% 18%; /* Slightly Lighter Dark Blue for cards */
-    --card-foreground: 210 40% 96%;
+    --card: 222 47.4% 11.2%; /* Dark Blue for cards */
+    --card-foreground: 210 40% 98%;
 
-    --popover: 220 60% 18%; 
-    --popover-foreground: 210 40% 96%;
+    --popover: 222 84% 4.9%; 
+    --popover-foreground: 210 40% 98%;
 
     /* Primary is Yellow in dark mode for buttons etc. */
     --primary: 48 100% 42%; /* Brighter Yellow */
-    --primary-foreground: 220 50% 10%; /* Very Dark Blue/Black for text on yellow */
+    --primary-foreground: 222 84% 4.9%; /* Very Dark Blue/Black for text on yellow */
 
-    --secondary: 220 40% 25%; /* Muted Dark Blue */
-    --secondary-foreground: 210 30% 85%; /* Light Grey */
+    --secondary: 217.2 32.6% 17.5%; /* Muted Dark Blue */
+    --secondary-foreground: 210 40% 98%; /* Light Grey */
 
-    --muted: 220 30% 20%; /* Darker Muted Blue */
-    --muted-foreground: 220 15% 55%; /* Grey */
+    --muted: 217.2 32.6% 17.5%; /* Darker Muted Blue */
+    --muted-foreground: 215 20.2% 65.1%; /* Grey */
 
     /* Accent is Yellow for branding and logo in dark mode */
     --accent: 48 100% 45%; /* Brighter Yellow */
-    --accent-foreground: 220 50% 10%; /* Dark text for contrast on yellow */
+    --accent-foreground: 222 84% 4.9%; /* Dark text for contrast on yellow */
 
-    --destructive: 0 70% 50%; 
+    --destructive: 0 62.8% 30.6%; 
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 40% 30%; /* Subtle Dark Blue Border */
-    --input: 220 30% 25%; /* Dark Input Background */
+    --border: 217.2 32.6% 17.5%; /* Subtle Dark Blue Border */
+    --input: 217.2 32.6% 17.5%; /* Dark Input Background */
     --ring: 48 100% 45%; /* Brighter Yellow for focus rings */
     
     /* Chart Colors (Dark Theme) */
@@ -97,12 +97,12 @@ body {
     --chart-5: 0 0% 80%; /* Light Grey (can be adjusted) */
 
     /* Sidebar variables - Dark Theme */
-    --sidebar-background: 220 70% 10%; /* Even Darker Blue for Sidebar */
+    --sidebar-background: 222 80% 8%; /* Even Darker Blue for Sidebar */
     --sidebar-foreground: 210 40% 90%; /* Light Gray text on Sidebar */
     --sidebar-primary: 48 100% 42%; /* Brighter Yellow for Sidebar Primary items */
-    --sidebar-primary-foreground: 220 25% 10%; /* Darker text for yellow */
+    --sidebar-primary-foreground: 222 84% 4.9%; /* Darker text for yellow */
     --sidebar-accent: 48 100% 45%; /* Brighter Yellow for Sidebar Accent */
-    --sidebar-accent-foreground: 220 50% 10%;
+    --sidebar-accent-foreground: 222 84% 4.9%;
     --sidebar-border: 220 40% 20%;
     --sidebar-ring: 48 100% 45%; /* Brighter Yellow */
   }
@@ -121,7 +121,7 @@ body {
     flex-direction: column;
   }
   .dark body {
-     /* In dark mode, primary/accent is yellow, so this gradient will use yellow */
+     /* In dark mode, accent is yellow, so this gradient will use yellow */
     background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05));
   }
   main { 

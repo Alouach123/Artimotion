@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: 'Artimotion - Transformez votre art en animation',
   description: 'Transformez vos œuvres d\'art en animations captivantes avec Artimotion !',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/palette-favicon.svg', // Updated to use the new SVG favicon
   },
 };
 
