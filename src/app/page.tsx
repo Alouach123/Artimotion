@@ -1,248 +1,129 @@
 
-"use client";
-
-import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { AppHeader } from '@/components/AppHeader';
 import { AppFooter } from '@/components/AppFooter';
-import { FileUpload } from '@/components/FileUpload';
-import { ProcessVisualizer, type ProcessStep } from '@/components/ProcessVisualizer';
-import { AnimationResult } from '@/components/AnimationResult';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
-import { isolateCharacter, type IsolateCharacterInput, type IsolateCharacterOutput } from '@/ai/flows/character-isolation';
-import { analyzeRelationship, type AnalyzeRelationshipInput, type AnalyzeRelationshipOutput } from '@/ai/flows/relationship-analysis';
-import { createAnimation, type CreateAnimationInput, type CreateAnimationOutput } from '@/ai/flows/animation-creation';
-import { Lightbulb, Palette, Wand2, HelpCircle, Target, Loader2, RotateCcw, CheckCircle2, AlertTriangle } from 'lucide-react';
-import { Sparkles, Scissors, Users, Film, UploadCloud, Image as ImageIcon } from 'lucide-react';
-
-
-const PROCESS_STEPS_CONFIG: ProcessStep[] = [
-  { id: 0, name: "Téléversement", statusText: "En attente du téléversement de l'œuvre...", icon: UploadCloud },
-  { id: 1, name: "Prêt à animer", statusText: "Œuvre téléversée. Prêt à démarrer.", icon: ImageIcon },
-  { id: 2, name: "Amélioration IA", statusText: "L'IA améliore la qualité de votre image...", icon: Wand2 },
-  { id: 3, name: "Isolation du Personnage", statusText: "L'IA isole le personnage et l'arrière-plan...", icon: Scissors },
-  { id: 4, name: "Analyse de la Scène", statusText: "L'IA analyse la scène pour une histoire captivante...", icon: Sparkles },
-  { id: 5, name: "Création de l'Animation", statusText: "L'IA confectionne votre animation...", icon: Film },
-  { id: 6, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2 },
-  { id: 7, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle },
-];
+import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit } from 'lucide-react';
 
 export default function HomePage() {
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [originalImageDataUri, setOriginalImageDataUri] = useState<string | null>(null);
-  
-  const [isolatedCharacterUri, setIsolatedCharacterUri] = useState<string | null>(null);
-  const [completedBackgroundUri, setCompletedBackgroundUri] = useState<string | null>(null);
-  const [scenario, setScenario] = useState<string | null>(null);
-  const [animationUri, setAnimationUri] = useState<string | null>(null);
+  const features = [
+    {
+      icon: Lightbulb,
+      title: "Expérience Intuitive",
+      description: "Interface conviviale pour une transformation d'art sans effort.",
+    },
+    {
+      icon: BrainCircuit, 
+      title: "Technologie de Pointe",
+      description: "Modèles d'IA avancés pour des résultats de haute qualité et des animations uniques.",
+    },
+    {
+      icon: Palette,
+      title: "Créativité Sans Limites",
+      description: "Explorez de nouvelles dimensions artistiques et partagez vos créations animées.",
+    },
+  ];
 
-  const [currentStep, setCurrentStep] = useState<number>(0); // Matches ProcessStep id
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [resetFileUpload, setResetFileUpload] = useState<boolean>(false);
+  const howItWorksSteps = [
+    { icon: UploadCloud, title: "1. Téléversez votre image", description: "Importez une image artistique contenant un personnage et son arrière-plan." },
+    { icon: Wand2, title: "2. Amélioration IA", description: "Notre IA améliore la qualité de votre image, la débruite et la rend plus réaliste." },
+    { icon: Scissors, title: "3. Séparation Magique", description: "L'IA isole le personnage et complète intelligemment l'arrière-plan." },
+    { icon: Sparkles, title: "4. Analyse Créative", description: "Un scénario logique et imaginatif est créé pour lier personnage et décor." },
+    { icon: Film, title: "5. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments avec fluidité." },
+  ];
 
-  const { toast } = useToast();
-
-  const resetState = useCallback(() => {
-    setUploadedFile(null);
-    setOriginalImageDataUri(null);
-    setIsolatedCharacterUri(null);
-    setCompletedBackgroundUri(null);
-    setScenario(null);
-    setAnimationUri(null);
-    setCurrentStep(0);
-    setIsLoading(false);
-    setErrorMessage(null);
-    setResetFileUpload(true); 
-    // After triggering reset, set it back to false for next upload cycle
-    setTimeout(() => setResetFileUpload(false), 0);
-  }, []);
-
-  const handleFileSelect = (file: File, dataUri: string) => {
-    resetState(); // Reset previous state before new file upload
-    setUploadedFile(file);
-    setOriginalImageDataUri(dataUri);
-    setCurrentStep(1); // Ready to animate
-    setResetFileUpload(false); // Ensure reset is false for the current upload
-  };
-  
-  const startProcessing = async () => {
-    if (!originalImageDataUri) {
-      toast({ title: "Aucune image sélectionnée", description: "Veuillez d'abord télécharger une image.", variant: "destructive" });
-      return;
-    }
-
-    setIsLoading(true);
-    setErrorMessage(null);
-
-    try {
-      // Step 2: Amélioration IA (Placeholder)
-      setCurrentStep(2);
-      // TODO: Implement actual AI call for image enhancement
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate AI processing time
-      toast({ title: "Image Améliorée", description: "La qualité de l'image a été améliorée (simulation)." });
-
-      // Step 3: Isolate Character
-      setCurrentStep(3);
-      const isolateInput: IsolateCharacterInput = { artworkDataUri: originalImageDataUri };
-      const isolateOutput: IsolateCharacterOutput = await isolateCharacter(isolateInput);
-      setIsolatedCharacterUri(isolateOutput.isolatedCharacterDataUri);
-      setCompletedBackgroundUri(isolateOutput.completedBackgroundDataUri);
-      toast({ title: "Personnage Isolé", description: "Le personnage et l'arrière-plan ont été séparés." });
-
-      // Step 4: Analyze Relationship
-      setCurrentStep(4);
-      const analyzeInput: AnalyzeRelationshipInput = {
-        characterDataUri: isolateOutput.isolatedCharacterDataUri,
-        backgroundDataUri: isolateOutput.completedBackgroundDataUri,
-      };
-      const analyzeOutput: AnalyzeRelationshipOutput = await analyzeRelationship(analyzeInput);
-      setScenario(analyzeOutput.scenario);
-      toast({ title: "Scénario Analysé", description: "Un scénario a été généré pour votre animation." });
-      
-      // Step 5: Create Animation
-      setCurrentStep(5);
-      const animationInput: CreateAnimationInput = {
-        characterDataUri: isolateOutput.isolatedCharacterDataUri,
-        backgroundDataUri: isolateOutput.completedBackgroundDataUri,
-        sceneDescription: analyzeOutput.scenario,
-      };
-      const animationOutput: CreateAnimationOutput = await createAnimation(animationInput);
-      setAnimationUri(animationOutput.animationDataUri);
-      
-      setCurrentStep(6); // Done
-      toast({ title: "Animation Créée !", description: "Votre œuvre d'art est maintenant animée.", variant: "default" });
-
-    } catch (error: any) {
-      console.error("Erreur durant le processus d'animation:", error);
-      const message = error.message || "Une erreur inconnue est survenue.";
-      setErrorMessage(message);
-      setCurrentStep(7); // Error step
-      toast({
-        title: "Erreur de Traitement",
-        description: message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const progressValue = currentStep > 1 && currentStep < 6 ? ((currentStep - 1) / 4) * 100 : (currentStep === 6 || currentStep === 7 ? 100 : 0);
+  const artExamples = [
+    { src: "https://placehold.co/600x400.png?text=Art+Généré+par+IA+1", alt: "Exemple d'art généré par IA 1", hint: "abstract colorful" },
+    { src: "https://placehold.co/600x400.png?text=Classique+Revisité+1", alt: "Exemple d'art classique revisité par IA 1", hint: "classic painting" },
+    { src: "https://placehold.co/600x400.png?text=Animation+Concept+1", alt: "Concept d'animation IA 1", hint: "fantasy animation" },
+    { src: "https://placehold.co/600x400.png?text=Personnage+Animé", alt: "Personnage animé par IA", hint: "animated character" },
+    { src: "https://placehold.co/600x400.png?text=Paysage+Dynamique", alt: "Paysage transformé en animation", hint: "dynamic landscape" },
+    { src: "https://placehold.co/600x400.png?text=Création+Originale+IA", alt: "Création originale générée par IA", hint: "ai original" },
+  ];
 
   return (
     <>
-      <AppHeader />
+      {/* AppHeader et AppFooter sont dans RootLayout et s'appliqueront automatiquement */}
       <main className="container mx-auto px-4 py-8 flex-grow">
-        <section className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-            Transformez vos œuvres d'art en animations captivantes !
+        {/* Hero Section */}
+        <section className="text-center py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-accent/10 rounded-xl shadow-lg mb-16">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+              Artimotion
+            </span>: Donnez Vie à Votre Art
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Artimotion donne vie à votre art. Téléchargez une image, et laissez notre IA créer une animation unique en quelques instants.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Transformez vos images statiques en animations captivantes et explorez la fusion de l'art classique et de la technologie moderne. Libérez votre créativité avec la puissance de l'intelligence artificielle.
           </p>
+          <Link href="/create-animation" passHref>
+            <Button size="lg" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-primary text-primary-foreground hover:bg-primary/90">
+              <Wand2 className="mr-2 h-5 w-5" />
+              Commencer à Animer
+            </Button>
+          </Link>
         </section>
 
-        <Card className="mb-12 shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Commencez Votre Animation</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center space-y-6">
-            {currentStep < 2 && (
-              <>
-                <FileUpload onFileSelect={handleFileSelect} disabled={isLoading} reset={resetFileUpload} />
-                {currentStep === 1 && originalImageDataUri && (
-                  <div className="text-center space-y-4">
-                     <Image src={originalImageDataUri} alt="Aperçu de l'image téléversée" width={200} height={200} className="rounded-md object-contain mx-auto border shadow-sm" data-ai-hint="art piece" />
-                    <Button onClick={startProcessing} disabled={isLoading} size="lg">
-                      {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
-                      Lancer l'Animation
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
-
-            {(currentStep >= 2 && currentStep < 6 && !animationUri) && (
-              <ProcessVisualizer
-                currentStep={currentStep}
-                steps={PROCESS_STEPS_CONFIG}
-                progressValue={progressValue}
-                errorMessage={errorMessage}
-                originalImageDataUri={originalImageDataUri}
-                isolatedCharacterUri={isolatedCharacterUri}
-                completedBackgroundUri={completedBackgroundUri}
-                scenario={scenario}
-              />
-            )}
-            
-            {currentStep === 6 && animationUri && scenario && (
-              <AnimationResult
-                animationUri={animationUri}
-                scenario={scenario}
-                onStartOver={resetState}
-              />
-            )}
-
-            {currentStep === 7 && ( // Error state display
-               <div className="w-full flex flex-col items-center space-y-4">
-                <ProcessVisualizer
-                    currentStep={currentStep}
-                    steps={PROCESS_STEPS_CONFIG}
-                    progressValue={100} // Progress is complete but with error
-                    errorMessage={errorMessage}
-                    originalImageDataUri={originalImageDataUri}
-                    isolatedCharacterUri={isolatedCharacterUri}
-                    completedBackgroundUri={completedBackgroundUri}
-                 />
-                <Button onClick={resetState} variant="outline">
-                  <RotateCcw className="mr-2 h-4 w-4" />
-                  Réessayer avec une nouvelle image
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold text-center mb-8">Comment ça fonctionne ?</h2>
-          <div className="grid md:grid-cols-1 lg:grid-cols-5 gap-6">
-            {[
-              { icon: UploadCloud, title: "1. Téléchargez votre image", description: "Importez une image artistique contenant un personnage et son arrière-plan." },
-              { icon: Wand2, title: "2. Amélioration IA", description: "Notre IA améliore la qualité de votre image, la débruite et la rend plus réaliste." },
-              { icon: Scissors, title: "3. Séparation Magique", description: "Notre IA isole le personnage et complète l'arrière-plan." },
-              { icon: Sparkles, title: "4. Analyse Créative", description: "Un scénario logique est créé pour lier personnage et décor." },
-              { icon: Film, title: "5. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments." },
-            ].map((step, idx) => (
-              <Card key={idx} className="text-center shadow-lg hover:shadow-xl transition-shadow">
+        {/* How It Works Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-semibold text-center mb-10">Comment ça fonctionne ?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {howItWorksSteps.map((step, idx) => (
+              <Card key={idx} className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
                 <CardHeader>
-                  <div className="mx-auto bg-accent/20 p-3 rounded-full w-fit mb-2">
+                  <div className="mx-auto bg-accent/20 p-3 rounded-full w-fit mb-3">
                     <step.icon className="w-8 h-8 text-accent" />
                   </div>
-                  <CardTitle>{step.title}</CardTitle>
+                  <CardTitle className="text-lg">{step.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <p className="text-muted-foreground text-sm">{step.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </section>
 
-        <section>
-          <h2 className="text-3xl font-semibold text-center mb-8">Pourquoi choisir Artimotion ?</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-             {[
-              { icon: Lightbulb, title: "Expérience Intuitive", description: "Interface conviviale pour une transformation d'art sans effort." },
-              { icon: Target, title: "Technologie de Pointe", description: "Modèles de Computer Vision avancés pour des résultats de haute qualité." },
-              { icon: Palette, title: "Créativité Sans Limites", description: "Explorez de nouvelles dimensions artistiques et partagez vos créations." },
-            ].map((feature, idx) => (
-              <Card key={idx} className="shadow-lg hover:shadow-xl transition-shadow">
-                 <CardHeader className="flex flex-row items-center gap-3">
-                   <div className="bg-primary/10 p-2 rounded-md">
-                    <feature.icon className="w-6 h-6 text-primary" />
+        {/* AI and Art History Section */}
+        <section className="mb-16 py-12 bg-card rounded-lg shadow-md">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-semibold text-center mb-8">L'IA au Service de l'Art: Une Nouvelle Ère Créative</h2>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <Image 
+                  src="https://placehold.co/800x600.png?text=AI+Art+Fusion" 
+                  alt="Concept d'art fusionnant IA et techniques classiques" 
+                  width={800} 
+                  height={600} 
+                  className="rounded-lg shadow-xl object-cover data-ai-hint='ai art concept'"
+                  data-ai-hint="ai art concept"
+                />
+              </div>
+              <div className="space-y-4 text-muted-foreground">
+                <p className="text-lg">
+                  L'intelligence artificielle redéfinit les frontières de la création artistique. Chez Artimotion, nous exploitons cette technologie pour offrir des outils innovants qui permettent aux artistes et aux créateurs de tous niveaux d'explorer de nouvelles formes d'expression.
+                </p>
+                <p>
+                  De la Renaissance à l'Impressionnisme, chaque époque a vu l'art évoluer avec les outils de son temps. Aujourd'hui, l'IA n'est pas un remplacement de la créativité humaine, mais un puissant collaborateur. Elle peut analyser des styles, générer des variations, et surtout, comme avec Artimotion, animer l'immobile pour raconter de nouvelles histoires.
+                </p>
+                <p>
+                  Imaginez donner vie aux personnages de vos tableaux préférés, ou voir un paysage statique s'animer au rythme d'une brise numérique. C'est la promesse d'Artimotion : un pont entre l'héritage artistique et le futur numérique.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Why Choose Artimotion Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-semibold text-center mb-10">Pourquoi choisir Artimotion ?</h2>
+          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+             {features.map((feature, idx) => (
+              <Card key={idx} className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
+                 <CardHeader className="flex flex-row items-center gap-4">
+                   <div className="bg-primary/10 p-3 rounded-lg">
+                    <feature.icon className="w-7 h-7 text-primary" />
                    </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
                 </CardHeader>
@@ -253,6 +134,39 @@ export default function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* Gallery Section */}
+        <section className="mb-12 py-12 bg-card rounded-lg shadow-md">
+           <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-semibold text-center mb-10">Galerie d'Inspirations</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {artExamples.map((art, index) => (
+                <Card key={index} className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
+                  <Image 
+                    src={art.src} 
+                    alt={art.alt} 
+                    width={600} 
+                    height={400} 
+                    className="w-full h-auto object-cover aspect-[3/2]" 
+                    data-ai-hint={art.hint} 
+                  />
+                  <CardContent className="p-4">
+                    <p className="text-muted-foreground text-sm text-center">{art.alt}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <Link href="/create-animation" passHref>
+                <Button size="lg" variant="default" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow">
+                  <Palette className="mr-2 h-5 w-5" />
+                  Animez Votre Propre Œuvre
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+        
       </main>
       <AppFooter />
     </>
