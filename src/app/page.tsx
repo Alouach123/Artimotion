@@ -150,7 +150,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {artExamples.map((art, index) => (
                 <Card key={index} className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col">
-                  <div className="relative w-full aspect-[4/5]"> {/* Adjusted aspect ratio for taller images */}
+                  <div className={`relative w-full ${index < 6 ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}>
                     <Image 
                       src={art.src} 
                       alt={art.alt} 
