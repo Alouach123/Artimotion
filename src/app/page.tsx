@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit, CheckCircle2 } from 'lucide-react';
+import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit } from 'lucide-react';
 
 export default function HomePage() {
   const features = [
@@ -69,13 +69,13 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {howItWorksSteps.map((step, idx) => (
               <Card key={idx} className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
-                <CardHeader>
-                  <div className="mx-auto bg-accent/20 p-3 rounded-full w-fit mb-3">
-                    <step.icon className="w-8 h-8 text-accent" />
+                <CardHeader className="flex flex-col items-center p-6">
+                  <div className="bg-accent/20 p-4 rounded-full w-fit mb-4">
+                    <step.icon className="w-10 h-10 text-accent" />
                   </div>
-                  <CardTitle className="text-lg">{step.title}</CardTitle>
+                  <CardTitle className="text-lg font-semibold">{step.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-6 pb-6">
                   <p className="text-muted-foreground text-sm">{step.description}</p>
                 </CardContent>
               </Card>
@@ -119,13 +119,13 @@ export default function HomePage() {
           <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
              {features.map((feature, idx) => (
               <Card key={idx} className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
-                 <CardHeader className="flex flex-row items-center gap-4">
+                 <CardHeader className="flex flex-row items-center gap-4 p-6">
                    <div className="bg-primary/10 p-3 rounded-lg">
                     <feature.icon className="w-7 h-7 text-primary" />
                    </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="px-6 pb-6">
                   <p className="text-muted-foreground">{feature.description}</p>
                 </CardContent>
               </Card>
