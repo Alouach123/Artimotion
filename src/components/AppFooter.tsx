@@ -20,12 +20,16 @@ export function AppFooter() {
           <div className="text-center md:text-left">
             <h3 className="text-lg font-semibold text-foreground mb-3">Projet de Module "Computer Vision"</h3>
             <h4 className="text-md font-medium text-foreground mb-1">Équipe :</h4>
-            <ul className="text-sm space-y-1 list-disc list-inside ml-4">
-              <li>ALOUACH Abdennour</li>
-              <li>EL HAMDAOUI Rania</li>
-              <li>ELGARRAB Idris</li>
-              <li>HAMMOUCHI Ouissal</li>
-            </ul>
+            <div className="grid grid-cols-2 gap-x-4 text-sm">
+              <ul className="space-y-1">
+                <li>ALOUACH Abdennour</li>
+                <li>EL HAMDAOUI Rania</li>
+              </ul>
+              <ul className="space-y-1">
+                <li>ELGARRAB Idris</li>
+                <li>HAMMOUCHI Ouissal</li>
+              </ul>
+            </div>
             <p className="text-sm mt-3">
               <span className="font-medium text-foreground">Supervisé par :</span> Prof. CHARROUD Anas
             </p>
