@@ -160,25 +160,25 @@ export default function SupportPage() {
           <CardHeader>
             <CardTitle className="flex items-center">
               <Users className="mr-2 h-6 w-6 text-accent" />
-              À Propos de Nous
+              À Propos d'Artimotion
             </CardTitle>
             <CardDescription>
-              Découvrez l'équipe derrière Artimotion et le contexte de ce projet.
+              Notre mission et l'équipe derrière ce projet innovant.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <div>
-              <h3 className="font-semibold text-lg text-foreground">Projet de Module "Computer Vision"</h3>
+              <h3 className="font-semibold text-lg text-foreground">Notre Vision</h3>
               <p className="text-muted-foreground">
-                Artimotion est un projet réalisé dans le cadre du module "Computer Vision".
+                Artimotion est né de la passion pour l'art et la technologie. C'est un projet développé dans le cadre de notre module "Computer Vision" en première année du Master Intelligence Artificielle et Technologies Émergentes (MIATE). Notre objectif est de fusionner la créativité humaine avec la puissance de l'intelligence artificielle pour offrir des outils uniques qui permettent de redécouvrir et de réinterpréter l'art sous une nouvelle forme dynamique.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg text-foreground">L'Équipe</h3>
+              <h3 className="font-semibold text-lg text-foreground">L'Équipe Créative</h3>
               <p className="text-muted-foreground">
-                Ce projet a été développé par une équipe d'étudiants passionnés du Master Intelligence Artificielle et Technologies Émergentes (MIATE) :
+                Ce projet a été conçu et réalisé par une équipe d'étudiants enthousiastes :
               </p>
-              <div className="grid grid-cols-2 gap-x-4 text-sm mt-2 text-muted-foreground">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 text-sm mt-2 text-muted-foreground">
                 <ul className="space-y-1">
                     <li>ALOUACH Abdennour</li>
                     <li>EL HAMDAOUI Rania</li>
@@ -190,9 +190,9 @@ export default function SupportPage() {
               </div>
             </div>
             <div className="mt-2">
-              <h3 className="font-semibold text-lg text-foreground">Supervision</h3>
+              <h3 className="font-semibold text-lg text-foreground">Supervision Académique</h3>
               <p className="text-muted-foreground">
-                Supervisé par : Prof. CHARROUD Anas
+                Nous avons eu le privilège d'être guidés et supervisés par le Professeur Anas CHARROUD tout au long de ce projet.
               </p>
             </div>
           </CardContent>
