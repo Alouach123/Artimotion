@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Lightbulb, Palette, Wand2, Brain, GalleryVertical, UploadCloud, Scissors, Sparkles, Film, Info, BrainCircuit, CheckCircle2 } from 'lucide-react';
+import { Lightbulb, Palette, Wand2, BrainCircuit, Sparkles, UploadCloud, Scissors, Film, Info, CheckCircle2 } from 'lucide-react';
 
 export default function HomePage() {
   const features = [
@@ -13,9 +13,14 @@ export default function HomePage() {
       description: "Interface conviviale pour une transformation d'art sans effort.",
     },
     {
-      icon: BrainCircuit, 
+      icon: BrainCircuit,
       title: "Technologie de Pointe",
       description: "Modèles d'IA avancés pour des résultats de haute qualité et des animations uniques.",
+    },
+    {
+      icon: Sparkles, // Nouvelle icône pour le point sur l'innovation
+      title: "Animation IA Unique",
+      description: "Notre processus innovant d'isolation de personnage et d'animation par IA donne vie à vos œuvres d'une manière totalement nouvelle.",
     },
     {
       icon: Palette,
@@ -115,7 +120,7 @@ export default function HomePage() {
         {/* Why Choose Artimotion Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-semibold text-center mb-10">Pourquoi choisir Artimotion ?</h2>
-          <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6"> {/* Changed to lg:grid-cols-2 to better fit 4 items */}
              {features.map((feature, idx) => (
               <Card key={idx} className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
                  <CardHeader className="flex flex-row items-center gap-4 p-6">
