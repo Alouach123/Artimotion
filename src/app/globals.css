@@ -8,95 +8,99 @@ body {
 
 @layer base {
   :root {
-    --background: 240 50% 98%; /* Very light, almost white-blueish gray */
-    --foreground: 240 10% 3.9%; /* Dark Gray - good for text */
+    --background: 0 0% 100%; /* White */
+    --foreground: 224 71.4% 4.1%; /* Dark Blue */
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 224 71.4% 4.1%;
 
-    --primary: 262 86% 56%; /* A vibrant Indigo/Violet */
-    --primary-foreground: 0 0% 98%; /* White */
+    --primary: 262 86% 56%; /* Vibrant Indigo/Violet */
+    --primary-foreground: 300 0% 98%; /* Very Light Pink/Almost White */
 
-    --secondary: 240 4.8% 95.9%; /* Light Gray */
-    --secondary-foreground: 240 5.9% 10%; /* Dark Gray */
+    --secondary: 220 14.3% 95.9%; /* Light Cool Gray */
+    --secondary-foreground: 220 8.9% 46.1%; /* Medium Cool Gray */
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%; /* Medium Gray */
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
 
-    --accent: 330 85% 60%; /* A bright Pink/Magenta */
-    --accent-foreground: 0 0% 98%; /* White */
+    --accent: 330 85% 60%; /* Bright Pink/Magenta */
+    --accent-foreground: 300 0% 98%; /* Very Light Pink/Almost White */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5.9% 90%; /* Lighter border */
-    --input: 240 5.9% 90%; /* Lighter input background */
-    --ring: 262 86% 56%; /* Ring color to match primary violet */
-    
-    --chart-1: 262 86% 56%; /* Using primary color */
-    --chart-2: 330 85% 60%; /* Using accent color */
-    --chart-3: 197 37% 24%; /* Keeping some original chart colors */
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --border: 220 13% 91%; /* Light Gray Border */
+    --input: 220 13% 91%; /* Light Gray Input */
+    --ring: 262 86% 56%; /* Primary color for rings */
+
     --radius: 0.5rem;
 
-    /* Sidebar variables - kept for consistency if sidebar is used elsewhere, but not primary for this app */
-    --sidebar-background: 240 5.9% 10%; /* Dark sidebar example */
+    /* Chart Colors (Light Theme) */
+    --chart-1: 262 86% 56%; /* primary */
+    --chart-2: 330 85% 60%; /* accent */
+    --chart-3: 197 71% 51%; /* Teal */
+    --chart-4: 43 94% 54%;  /* Orange */
+    --chart-5: 140 67% 51%; /* Green */
+
+    /* Sidebar variables */
+    --sidebar-background: 240 5.9% 10%; /* Dark sidebar for contrast */
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 262 86% 56%;
+    --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 262 86% 56%;
   }
 
   .dark {
-    --background: 240 10% 3.9%; /* Very Dark Blue - almost black */
-    --foreground: 0 0% 98%; /* Almost White */
+    --background: 224 71.4% 4.1%; /* Dark Blue */
+    --foreground: 210 20% 98%; /* Almost White */
 
-    --card: 240 4% 9%; /* Slightly lighter dark */
-    --card-foreground: 0 0% 98%;
+    --card: 224 71.4% 4.1%; /* Dark Blue */
+    --card-foreground: 210 20% 98%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 224 71.4% 4.1%; /* Dark Blue */
+    --popover-foreground: 210 20% 98%;
 
-    --primary: 262 80% 70%; /* Lighter Indigo/Violet for dark mode */
-    --primary-foreground: 240 5.9% 10%; /* Dark text on primary */
+    --primary: 262 80% 65%; /* Lighter Indigo/Violet */
+    --primary-foreground: 300 0% 98%; /* Very Light Pink/Almost White */
 
-    --secondary: 240 3.7% 15.9%; /* Dark Gray */
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 220 13% 18%; /* Darker Cool Gray */
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%; /* Lighter Gray for muted text */
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 8.9% 55.1%; /* Lighter Medium Gray */
 
-    --accent: 330 90% 70%; /* Lighter Pink/Magenta for dark mode */
-    --accent-foreground: 240 5.9% 10%; /* Dark text on accent */
+    --accent: 330 80% 65%; /* Lighter Pink/Magenta */
+    --accent-foreground: 240 5.9% 10%; /* Darker for contrast on accent */
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 30.6%; /* Darker Red */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 262 80% 70%; /* Primary color for rings */
+    --border: 220 13% 26%; /* Darker Border */
+    --input: 220 13% 26%; /* Darker Input */
+    --ring: 262 80% 65%; /* Lighter primary for rings */
     
-    --chart-1: 262 80% 70%; /* Using primary color for dark mode */
-    --chart-2: 330 90% 70%; /* Using accent color for dark mode */
-    --chart-3: 197 50% 40%; /* Adjusted for dark mode */
-    --chart-4: 43 80% 70%;  /* Adjusted for dark mode */
-    --chart-5: 27 90% 70%;  /* Adjusted for dark mode */
+    /* Chart Colors (Dark Theme) */
+    --chart-1: 262 80% 65%; /* primary */
+    --chart-2: 330 80% 65%; /* accent */
+    --chart-3: 197 60% 60%; /* Lighter Teal */
+    --chart-4: 43 80% 60%;  /* Lighter Orange */
+    --chart-5: 140 55% 60%; /* Lighter Green */
 
-    --sidebar-background: 240 5.9% 10%;
+    /* Sidebar variables - can remain similar or be adjusted if needed */
+    --sidebar-background: 240 5.9% 10%; 
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-primary: 262 80% 65%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 3.7% 20%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-border: 240 3.7% 20%;
+    --sidebar-ring: 262 80% 65%;
   }
 }
 
@@ -106,7 +110,7 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05));
+    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.1)); /* Subtle gradient with accent */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
