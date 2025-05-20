@@ -8,37 +8,37 @@ body {
 
 @layer base {
   :root {
-    --background: 225 27% 95%; /* #F0F0F5 Light Gray */
-    --foreground: 240 10% 3.9%; /* Default Dark for text */
+    --background: 240 50% 98%; /* Very light, almost white-blueish gray */
+    --foreground: 240 10% 3.9%; /* Dark Gray - good for text */
 
-    --card: 225 27% 98%; /* Slightly lighter than background for cards */
+    --card: 0 0% 100%; /* White */
     --card-foreground: 240 10% 3.9%;
 
-    --popover: 225 27% 98%;
+    --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 230 100% 66%; /* #5271FF Deep Blue for interactive elements */
-    --primary-foreground: 0 0% 100%; /* White text on deep blue */
+    --primary: 262 86% 56%; /* A vibrant Indigo/Violet */
+    --primary-foreground: 0 0% 98%; /* White */
 
-    --secondary: 240 10% 90%; /* A slightly darker gray for secondary elements */
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary: 240 4.8% 95.9%; /* Light Gray */
+    --secondary-foreground: 240 5.9% 10%; /* Dark Gray */
 
-    --muted: 240 10% 90%;
-    --muted-foreground: 240 5% 45%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%; /* Medium Gray */
 
-    --accent: 253 93% 75%; /* #A78BFA Subdued Violet */
-    --accent-foreground: 240 10% 3.9%; /* Dark text on violet accent */
+    --accent: 330 85% 60%; /* A bright Pink/Magenta */
+    --accent-foreground: 0 0% 98%; /* White */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 88%;
-    --input: 240 10% 92%;
-    --ring: 230 100% 66%; /* Ring color to match primary blue */
+    --border: 240 5.9% 90%; /* Lighter border */
+    --input: 240 5.9% 90%; /* Lighter input background */
+    --ring: 262 86% 56%; /* Ring color to match primary violet */
     
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
+    --chart-1: 262 86% 56%; /* Using primary color */
+    --chart-2: 330 85% 60%; /* Using accent color */
+    --chart-3: 197 37% 24%; /* Keeping some original chart colors */
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
@@ -55,39 +55,39 @@ body {
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 240 10% 3.9%; /* Very Dark Blue - almost black */
+    --foreground: 0 0% 98%; /* Almost White */
 
-    --card: 240 10% 3.9%;
+    --card: 240 4% 9%; /* Slightly lighter dark */
     --card-foreground: 0 0% 98%;
 
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 230 100% 70%; /* Adjusted blue for dark mode */
-    --primary-foreground: 0 0% 100%;
+    --primary: 262 80% 70%; /* Lighter Indigo/Violet for dark mode */
+    --primary-foreground: 240 5.9% 10%; /* Dark text on primary */
 
-    --secondary: 240 4% 15%;
+    --secondary: 240 3.7% 15.9%; /* Dark Gray */
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 4% 15%;
-    --muted-foreground: 240 5% 63%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%; /* Lighter Gray for muted text */
 
-    --accent: 253 93% 78%; /* Adjusted violet for dark mode */
-    --accent-foreground: 0 0% 98%;
+    --accent: 330 90% 70%; /* Lighter Pink/Magenta for dark mode */
+    --accent-foreground: 240 5.9% 10%; /* Dark text on accent */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 4% 15%;
-    --input: 240 4% 15%;
-    --ring: 230 100% 70%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 262 80% 70%; /* Primary color for rings */
     
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --chart-1: 262 80% 70%; /* Using primary color for dark mode */
+    --chart-2: 330 90% 70%; /* Using accent color for dark mode */
+    --chart-3: 197 50% 40%; /* Adjusted for dark mode */
+    --chart-4: 43 80% 70%;  /* Adjusted for dark mode */
+    --chart-5: 27 90% 70%;  /* Adjusted for dark mode */
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -106,6 +106,7 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05));
     min-height: 100vh;
     display: flex;
     flex-direction: column;
