@@ -47,6 +47,7 @@ export async function isolateCharacter(input: IsolateCharacterInput): Promise<Is
 // Define the prompt for character isolation and background completion
 const characterIsolationPrompt = ai.definePrompt({
   name: 'characterIsolationPrompt',
+  model: 'googleai/gemini-2.0-flash-exp', // Specify the model for image generation capabilities
   input: {schema: IsolateCharacterInputSchema},
   output: {schema: IsolateCharacterOutputSchema},
   prompt: `You are an AI that isolates the main character from an artwork and fills the background.
@@ -59,7 +60,7 @@ const characterIsolationPrompt = ai.definePrompt({
 
   Return both the isolated character and the completed background as data URIs.
   Ensure that the isolated character and completed background preserve the style of the original artwork.
-  `, // Ensure valid base64 encoding
+  `,
   config: {
     safetySettings: [
       {
@@ -91,7 +92,10 @@ const isolateCharacterFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await characterIsolationPrompt(input);
-    return output!;
+    if (!output) {
+      throw new Error("Failed to get a valid output from characterIsolationPrompt. The model might have failed to generate the required data.");
+    }
+    return output;
   }
 );
 
