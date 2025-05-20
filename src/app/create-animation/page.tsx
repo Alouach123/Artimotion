@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { FileUpload } from '@/components/FileUpload';
 import { ProcessVisualizer, type ProcessStep } from '@/components/ProcessVisualizer';
@@ -12,9 +12,8 @@ import { useToast } from '@/hooks/use-toast';
 import { isolateCharacter, type IsolateCharacterInput, type IsolateCharacterOutput } from '@/ai/flows/character-isolation';
 import { analyzeRelationship, type AnalyzeRelationshipInput, type AnalyzeRelationshipOutput } from '@/ai/flows/relationship-analysis';
 import { createAnimation, type CreateAnimationInput, type CreateAnimationOutput } from '@/ai/flows/animation-creation';
-import { Wand2, Loader2, RotateCcw, UploadCloud, ImageIcon as ImageIconLucide, Scissors, Sparkles, Film, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Wand2, Loader2, RotateCcw, UploadCloud, ImageIcon as ImageIconLucide, Scissors, Sparkles, Film, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
 
-// Added stage property to better manage visualization
 export interface ExtendedProcessStep extends ProcessStep {
   stage: 'initial' | 'processing' | 'done' | 'error';
 }
@@ -26,9 +25,22 @@ const PROCESS_STEPS_CONFIG: ExtendedProcessStep[] = [
   { id: 3, name: "Isolation du Personnage", statusText: "L'IA isole le personnage et l'arrière-plan...", icon: Scissors, stage: 'processing' },
   { id: 4, name: "Analyse de la Scène", statusText: "L'IA analyse la scène pour une histoire captivante...", icon: Sparkles, stage: 'processing' },
   { id: 5, name: "Création de l'Animation", statusText: "L'IA confectionne votre animation...", icon: Film, stage: 'processing' },
-  { id: 6, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2, stage: 'done' },
-  { id: 7, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle, stage: 'error' },
+  { id: 6, name: "Finalisation", statusText: "Finalisation de l'animation...", icon: Wand2, stage: 'processing' }, // Nouvelle étape de finalisation
+  { id: 7, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2, stage: 'done' },
+  { id: 8, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle, stage: 'error' },
 ];
+
+// IDs pour une meilleure lisibilité
+const INITIAL_UPLOAD_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Téléversement")!.id;
+const READY_TO_ANIMATE_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Prêt à animer")!.id;
+const ENHANCEMENT_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Amélioration IA")!.id;
+const ISOLATION_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Isolation du Personnage")!.id;
+const ANALYSIS_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Analyse de la Scène")!.id;
+const CREATION_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Création de l'Animation")!.id;
+const FINALIZATION_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Finalisation")!.id;
+const DONE_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Animation Prête !")!.id;
+const ERROR_STEP_ID = PROCESS_STEPS_CONFIG.find(step => step.name === "Erreur")!.id;
+
 
 export default function CreateAnimationPage() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
@@ -39,7 +51,7 @@ export default function CreateAnimationPage() {
   const [scenario, setScenario] = useState<string | null>(null);
   const [animationUri, setAnimationUri] = useState<string | null>(null);
 
-  const [currentStepId, setCurrentStepId] = useState<number>(0);
+  const [currentStepId, setCurrentStepId] = useState<number>(INITIAL_UPLOAD_STEP_ID);
   const [failedStepId, setFailedStepId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -47,6 +59,9 @@ export default function CreateAnimationPage() {
   const [progress, setProgress] = useState(0);
 
   const { toast } = useToast();
+  // Using a ref for AbortController as it doesn't need to trigger re-renders
+  const abortControllerRef = useRef<AbortController | null>(null);
+
 
   const resetState = useCallback(() => {
     setUploadedFile(null);
@@ -55,12 +70,16 @@ export default function CreateAnimationPage() {
     setCompletedBackgroundUri(null);
     setScenario(null);
     setAnimationUri(null);
-    setCurrentStepId(0);
+    setCurrentStepId(INITIAL_UPLOAD_STEP_ID);
     setFailedStepId(null);
     setIsLoading(false);
     setErrorMessage(null);
     setProgress(0);
     setResetFileUpload(true); 
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Abort any ongoing request
+      abortControllerRef.current = null;
+    }
     setTimeout(() => setResetFileUpload(false), 0);
   }, []);
 
@@ -68,7 +87,7 @@ export default function CreateAnimationPage() {
     resetState();
     setUploadedFile(file);
     setOriginalImageDataUri(dataUri);
-    setCurrentStepId(1); // Ready to animate
+    setCurrentStepId(READY_TO_ANIMATE_STEP_ID); 
     setResetFileUpload(false);
   };
   
@@ -83,70 +102,111 @@ export default function CreateAnimationPage() {
     setAnimationUri(null);
     setFailedStepId(null);
     setProgress(0);
+    // abortControllerRef.current = new AbortController(); // For potential future use with Genkit cancellation
+    // const signal = abortControllerRef.current.signal;
 
     try {
-      // Step 2: Amélioration IA (Placeholder)
-      setCurrentStepId(2);
-      setProgress(10); // Start of step 2
+      // Step 1 of processing: Amélioration IA
+      setCurrentStepId(ENHANCEMENT_STEP_ID);
       // TODO: Implement actual AI call for image enhancement
       await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate AI processing time
+      // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
       toast({ title: "Image Améliorée", description: "La qualité de l'image a été améliorée (simulation)." });
-      setProgress(25); // End of step 2
+      setProgress(20);
 
-      // Step 3: Isolate Character
-      setCurrentStepId(3);
+      // Step 2 of processing: Isolate Character
+      setCurrentStepId(ISOLATION_STEP_ID);
       const isolateInput: IsolateCharacterInput = { artworkDataUri: originalImageDataUri };
-      const isolateOutput: IsolateCharacterOutput = await isolateCharacter(isolateInput);
+      const isolateOutput: IsolateCharacterOutput = await isolateCharacter(isolateInput); // TODO: Pass signal if supported
+      // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
       setIsolatedCharacterUri(isolateOutput.isolatedCharacterDataUri);
       setCompletedBackgroundUri(isolateOutput.completedBackgroundDataUri);
       toast({ title: "Personnage Isolé", description: "Le personnage et l'arrière-plan ont été séparés." });
-      setProgress(50); // End of step 3
+      setProgress(40);
 
-      // Step 4: Analyze Relationship
-      setCurrentStepId(4);
+      // Step 3 of processing: Analyze Relationship
+      setCurrentStepId(ANALYSIS_STEP_ID);
       const analyzeInput: AnalyzeRelationshipInput = {
         characterDataUri: isolateOutput.isolatedCharacterDataUri,
         backgroundDataUri: isolateOutput.completedBackgroundDataUri,
       };
-      const analyzeOutput: AnalyzeRelationshipOutput = await analyzeRelationship(analyzeInput);
+      const analyzeOutput: AnalyzeRelationshipOutput = await analyzeRelationship(analyzeInput); // TODO: Pass signal if supported
+      // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
       setScenario(analyzeOutput.scenario);
       toast({ title: "Scénario Analysé", description: "Un scénario a été généré pour votre animation." });
-      setProgress(75); // End of step 4
+      setProgress(60);
       
-      // Step 5: Create Animation
-      setCurrentStepId(5);
+      // Step 4 of processing: Create Animation
+      setCurrentStepId(CREATION_STEP_ID);
       const animationInput: CreateAnimationInput = {
         characterDataUri: isolateOutput.isolatedCharacterDataUri,
         backgroundDataUri: isolateOutput.completedBackgroundDataUri,
         sceneDescription: analyzeOutput.scenario,
       };
-      const animationOutput: CreateAnimationOutput = await createAnimation(animationInput);
-      setAnimationUri(animationOutput.animationDataUri);
-      setProgress(100); // End of step 5
+      const animationOutput: CreateAnimationOutput = await createAnimation(animationInput); // TODO: Pass signal if supported
+      // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
+      // Defer setting animationUri until after finalization
+      setProgress(80); 
       
-      setCurrentStepId(6); // Done
+      // Step 5 of processing: Finalisation
+      setCurrentStepId(FINALIZATION_STEP_ID);
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate finalization
+      // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
+      setAnimationUri(animationOutput.animationDataUri); // Set URI now
+      toast({ title: "Finalisation", description: "L'animation est en cours de finalisation." });
+      setProgress(100);
+      
+      setCurrentStepId(DONE_STEP_ID); 
       toast({ title: "Animation Créée !", description: "Votre œuvre d'art est maintenant animée.", variant: "default" });
 
     } catch (error: any) {
       console.error("Erreur durant le processus d'animation:", error);
-      const message = error.message || "Une erreur inconnue est survenue.";
-      setErrorMessage(message);
-      setFailedStepId(currentStepId); // Record which step failed
-      setCurrentStepId(7); // Error step
-      setProgress(100); // Keep progress at 100 or at the point of failure if desired
-      toast({
-        title: "Erreur de Traitement",
-        description: message,
-        variant: "destructive",
-      });
+      if (error.name === 'AbortError') {
+        setErrorMessage("Processus annulé par l'utilisateur.");
+        setFailedStepId(currentStepId);
+        setCurrentStepId(ERROR_STEP_ID);
+        toast({
+          title: "Processus Annulé",
+          description: "L'opération a été annulée.",
+          variant: "destructive",
+        });
+      } else {
+        const message = error.message || "Une erreur inconnue est survenue.";
+        setErrorMessage(message);
+        setFailedStepId(currentStepId); 
+        setCurrentStepId(ERROR_STEP_ID); 
+        toast({
+          title: "Erreur de Traitement",
+          description: message,
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
+      abortControllerRef.current = null; // Clear the controller
     }
   };
 
-  const showProcessVisualizer = (currentStepId >= 2 && currentStepId <= 5 && !animationUri && !errorMessage) || (currentStepId === 7 && errorMessage);
-  const showAnimationResult = currentStepId === 6 && animationUri && !errorMessage;
-  const showFileUpload = currentStepId < 2 || (currentStepId === 7 && errorMessage); // Show uploader if error and user wants to retry
+  const handleStopProcessing = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // This would signal Genkit flows if they supported it
+    }
+    // For a "soft stop" that immediately reflects in UI:
+    setIsLoading(false);
+    setErrorMessage("Processus arrêté par l'utilisateur.");
+    setFailedStepId(currentStepId); 
+    setCurrentStepId(ERROR_STEP_ID);
+    toast({
+      title: "Processus Arrêté",
+      description: "L'animation a été annulée par l'utilisateur.",
+      variant: "destructive",
+    });
+  }, [currentStepId, toast]);
+
+  const showProcessVisualizer = (isLoading && !animationUri && !errorMessage) || (currentStepId === ERROR_STEP_ID && errorMessage !== null);
+  const showAnimationResult = currentStepId === DONE_STEP_ID && animationUri && !errorMessage;
+  const showFileUpload = currentStepId < ENHANCEMENT_STEP_ID || (currentStepId === ERROR_STEP_ID && errorMessage !== null);
+
 
   return (
     <main className="container mx-auto px-4 py-8 flex-grow">
@@ -170,13 +230,13 @@ export default function CreateAnimationPage() {
           {showFileUpload && (
             <div className="w-full max-w-lg flex flex-col items-center space-y-6">
               <FileUpload onFileSelect={handleFileSelect} disabled={isLoading} reset={resetFileUpload} />
-              {currentStepId === 1 && originalImageDataUri && !isLoading && (
+              {currentStepId === READY_TO_ANIMATE_STEP_ID && originalImageDataUri && !isLoading && (
                 <div className="text-center space-y-4">
                    <div className="relative w-48 h-48 mx-auto">
                     <Image 
                       src={originalImageDataUri} 
                       alt="Aperçu de l'image téléversée" 
-                      layout="fill" 
+                      fill // Changed from layout="fill"
                       objectFit="contain" 
                       className="rounded-md border shadow-sm"
                       data-ai-hint="art piece"
@@ -204,6 +264,12 @@ export default function CreateAnimationPage() {
                     completedBackgroundUri={completedBackgroundUri}
                     scenario={scenario}
                 />
+                {isLoading && !animationUri && !errorMessage && (
+                  <Button onClick={handleStopProcessing} variant="destructive" size="lg" className="mt-6 w-full sm:w-auto">
+                    <XCircle className="mr-2 h-5 w-5" />
+                    Arrêter le processus
+                  </Button>
+                )}
             </div>
           )}
           
@@ -215,9 +281,8 @@ export default function CreateAnimationPage() {
             />
           )}
 
-          {currentStepId === 7 && errorMessage && ( 
+          {currentStepId === ERROR_STEP_ID && errorMessage && ( 
              <div className="w-full max-w-2xl flex flex-col items-center space-y-4 mt-6">
-              {/* ProcessVisualizer already shown above if currentStepId is 7 */}
               <Button onClick={resetState} variant="outline" size="lg">
                 <RotateCcw className="mr-2 h-4 w-4" />
                 Réessayer avec une nouvelle image
@@ -229,3 +294,5 @@ export default function CreateAnimationPage() {
     </main>
   );
 }
+
+    
