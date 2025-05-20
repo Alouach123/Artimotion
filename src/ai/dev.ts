@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/character-isolation.ts';
+import '@/ai/flows/relationship-analysis.ts';
+import '@/ai/flows/animation-creation.ts';
