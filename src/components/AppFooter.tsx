@@ -1,22 +1,23 @@
 import Link from 'next/link';
 import { Github, Linkedin, Twitter } from 'lucide-react';
+import { ArtimotionLogo } from './ArtimotionLogo';
 
 export function AppFooter() {
   return (
     <footer className="py-8 border-t border-border/50 bg-card/50 backdrop-blur-sm text-muted-foreground">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Colonne 1: Artimotion Info */}
-          <div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Artimotion</h3>
-            <p className="text-sm mb-1">
+          <div className="flex flex-col items-center md:items-start">
+            <ArtimotionLogo />
+            <p className="text-sm mt-2 text-center md:text-left">
               Transformez votre art, une animation à la fois.
             </p>
-            <p className="text-xs">&copy; {new Date().getFullYear()} Artimotion. Tous droits réservés.</p>
+            <p className="text-xs mt-1 text-center md:text-left">&copy; {new Date().getFullYear()} Artimotion. Tous droits réservés.</p>
           </div>
 
           {/* Colonne 2: Équipe du Projet */}
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-lg font-semibold text-foreground mb-2">Projet de Module "Computer Vision"</h3>
             <ul className="text-sm space-y-1">
               <li>ALOUACH Abdennour</li>
@@ -24,12 +25,13 @@ export function AppFooter() {
               <li>ELGARRAB Idris</li>
               <li>HAMMOUCHI Ouissal</li>
             </ul>
+            <p className="text-sm mt-2">Supervisé par : Prof. CHARROUD Anas</p>
           </div>
 
           {/* Colonne 3: Réseaux Sociaux */}
-          <div>
+          <div className="text-center md:text-right">
             <h3 className="text-lg font-semibold text-foreground mb-2">Suivez-nous</h3>
-            <div className="flex space-x-4">
+            <div className="flex justify-center md:justify-end space-x-4">
               <Link href="#" aria-label="GitHub" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github className="h-6 w-6" />
               </Link>
@@ -39,7 +41,6 @@ export function AppFooter() {
               <Link href="#" aria-label="Twitter" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter className="h-6 w-6" />
               </Link>
-              {/* Ajoutez d'autres icônes de réseaux sociaux ici si nécessaire */}
             </div>
           </div>
         </div>

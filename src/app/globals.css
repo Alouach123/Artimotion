@@ -9,15 +9,15 @@ body {
 @layer base {
   :root {
     --background: 0 0% 100%; /* White */
-    --foreground: 220 60% 20%; /* Dark Blue */
+    --foreground: 220 60% 20%; /* Dark Blue for text */
 
-    --card: 240 5% 97%; /* Very Light Gray */
-    --card-foreground: 220 60% 20%;
+    --card: 0 0% 98%; /* Very Light Gray, almost white */
+    --card-foreground: 220 60% 20%; /* Dark Blue for card text */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 60% 20%;
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 220 60% 20%; /* Dark Blue */
 
-    --primary: 220 70% 45%; /* Main Blue */
+    --primary: 220 70% 45%; /* Main Blue - for buttons, interactive elements */
     --primary-foreground: 0 0% 100%; /* White Text on Blue */
 
     --secondary: 220 20% 90%; /* Light Grayish Blue */
@@ -26,27 +26,27 @@ body {
     --muted: 220 20% 94%; /* Very Light Muted Blue/Gray */
     --muted-foreground: 220 15% 45%; /* Grayer text */
 
-    --accent: 45 100% 50%; /* Vibrant Yellow */
+    --accent: 45 100% 50%; /* Vibrant Yellow - for accents, logo */
     --accent-foreground: 220 50% 10%; /* Dark text for contrast on yellow */
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%;
 
     --border: 220 20% 88%; /* Light Gray border */
     --input: 220 20% 95%; /* Slightly off-white for input fields */
-    --ring: 220 70% 45%; /* Primary blue for rings/focus */
+    --ring: 45 100% 50%; /* Yellow for focus rings, matching accent */
 
     --radius: 0.5rem;
 
     /* Chart Colors (Light Theme) */
-    --chart-1: 220 70% 50%; /* Primary Blue */
-    --chart-2: 45 100% 50%; /* Accent Yellow */
+    --chart-1: hsl(var(--primary)); /* Main Blue */
+    --chart-2: hsl(var(--accent)); /* Accent Yellow */
     --chart-3: 210 70% 60%; /* Another Blue shade */
     --chart-4: 35 90% 60%;  /* Orange */
     --chart-5: 160 60% 45%; /* Teal/Greenish Blue */
 
     /* Sidebar variables (Light Theme) */
-    --sidebar-background: 220 60% 15%; /* Darker Blue for Sidebar */
+    --sidebar-background: 220 60% 15%; /* Dark Blue for Sidebar */
     --sidebar-foreground: 220 10% 95%; /* Light Gray text on Sidebar */
     --sidebar-primary: 45 100% 55%; /* Yellow for Sidebar Primary items */
     --sidebar-primary-foreground: 220 25% 10%; /* Darker text for yellow */
@@ -66,7 +66,7 @@ body {
     --popover: 220 60% 18%; 
     --popover-foreground: 210 40% 96%;
 
-    --primary: 45 100% 50%; /* Vibrant Yellow */
+    --primary: 45 100% 50%; /* Vibrant Yellow for buttons etc. in dark mode */
     --primary-foreground: 220 50% 10%; /* Very Dark Blue/Black for text on yellow */
 
     --secondary: 220 40% 25%; /* Muted Dark Blue */
@@ -75,10 +75,10 @@ body {
     --muted: 220 30% 20%; /* Darker Muted Blue */
     --muted-foreground: 220 15% 55%; /* Grey */
 
-    --accent: 50 100% 55%; /* Slightly brighter Yellow for accents */
-    --accent-foreground: 220 50% 10%;
+    --accent: 50 100% 55%; /* Slightly brighter Yellow - for accents, logo */
+    --accent-foreground: 220 50% 10%; /* Dark text for contrast on yellow */
 
-    --destructive: 0 70% 50%; /* A slightly brighter red for better contrast on dark */
+    --destructive: 0 70% 50%; 
     --destructive-foreground: 0 0% 98%;
 
     --border: 220 40% 30%; /* Subtle Dark Blue Border */
@@ -86,18 +86,18 @@ body {
     --ring: 45 100% 50%; /* Yellow for focus rings */
     
     /* Chart Colors (Dark Theme) */
-    --chart-1: 45 100% 50%; /* Primary Yellow */
+    --chart-1: hsl(var(--primary)); /* Primary Yellow in Dark Mode */
     --chart-2: 220 60% 65%; /* A lighter blue for contrast */
     --chart-3: 35 100% 55%; /* Orange-Yellow */
     --chart-4: 200 70% 70%; /* Sky Blue */
     --chart-5: 0 0% 80%; /* Light Grey */
 
-    /* Sidebar variables - can remain similar or be adjusted if needed */
-    --sidebar-background: 220 70% 10%; 
-    --sidebar-foreground: 210 40% 90%;
-    --sidebar-primary: 45 100% 55%;
-    --sidebar-primary-foreground: 220 25% 10%;
-    --sidebar-accent: 50 100% 60%;
+    /* Sidebar variables - Dark Theme */
+    --sidebar-background: 220 70% 10%; /* Even Darker Blue for Sidebar */
+    --sidebar-foreground: 210 40% 90%; /* Light Gray text on Sidebar */
+    --sidebar-primary: 45 100% 55%; /* Yellow for Sidebar Primary items */
+    --sidebar-primary-foreground: 220 25% 10%; /* Darker text for yellow */
+    --sidebar-accent: 50 100% 60%; /* Brighter yellow for Sidebar Accent */
     --sidebar-accent-foreground: 220 50% 10%;
     --sidebar-border: 220 40% 20%;
     --sidebar-ring: 45 100% 55%;
@@ -110,16 +110,17 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    /* Subtle gradient, using accent for light mode and a darker shade for dark mode */
+    /* Subtle gradient */
     background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05)); 
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
   .dark body {
+     /* In dark mode, primary is yellow, so this gradient will use yellow */
     background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--primary) / 0.05));
   }
-  main { /* Added to ensure main content area takes up available space */
+  main { 
     flex-grow: 1;
   }
 }
