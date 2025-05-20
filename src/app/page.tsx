@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
@@ -20,11 +21,12 @@ import { Sparkles, Scissors, Users, Film, UploadCloud, Image as ImageIcon } from
 const PROCESS_STEPS_CONFIG: ProcessStep[] = [
   { id: 0, name: "Téléversement", statusText: "En attente du téléversement de l'œuvre...", icon: UploadCloud },
   { id: 1, name: "Prêt à animer", statusText: "Œuvre téléversée. Prêt à démarrer.", icon: ImageIcon },
-  { id: 2, name: "Isolation du Personnage", statusText: "L'IA isole le personnage et l'arrière-plan...", icon: Scissors },
-  { id: 3, name: "Analyse de la Scène", statusText: "L'IA analyse la scène pour une histoire captivante...", icon: Sparkles },
-  { id: 4, name: "Création de l'Animation", statusText: "L'IA confectionne votre animation...", icon: Film },
-  { id: 5, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2 },
-  { id: 6, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle },
+  { id: 2, name: "Amélioration IA", statusText: "L'IA améliore la qualité de votre image...", icon: Wand2 },
+  { id: 3, name: "Isolation du Personnage", statusText: "L'IA isole le personnage et l'arrière-plan...", icon: Scissors },
+  { id: 4, name: "Analyse de la Scène", statusText: "L'IA analyse la scène pour une histoire captivante...", icon: Sparkles },
+  { id: 5, name: "Création de l'Animation", statusText: "L'IA confectionne votre animation...", icon: Film },
+  { id: 6, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2 },
+  { id: 7, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle },
 ];
 
 export default function HomePage() {
@@ -76,16 +78,22 @@ export default function HomePage() {
     setErrorMessage(null);
 
     try {
-      // Step 2: Isolate Character
+      // Step 2: Amélioration IA (Placeholder)
       setCurrentStep(2);
+      // TODO: Implement actual AI call for image enhancement
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate AI processing time
+      toast({ title: "Image Améliorée", description: "La qualité de l'image a été améliorée (simulation)." });
+
+      // Step 3: Isolate Character
+      setCurrentStep(3);
       const isolateInput: IsolateCharacterInput = { artworkDataUri: originalImageDataUri };
       const isolateOutput: IsolateCharacterOutput = await isolateCharacter(isolateInput);
       setIsolatedCharacterUri(isolateOutput.isolatedCharacterDataUri);
       setCompletedBackgroundUri(isolateOutput.completedBackgroundDataUri);
       toast({ title: "Personnage Isolé", description: "Le personnage et l'arrière-plan ont été séparés." });
 
-      // Step 3: Analyze Relationship
-      setCurrentStep(3);
+      // Step 4: Analyze Relationship
+      setCurrentStep(4);
       const analyzeInput: AnalyzeRelationshipInput = {
         characterDataUri: isolateOutput.isolatedCharacterDataUri,
         backgroundDataUri: isolateOutput.completedBackgroundDataUri,
@@ -94,8 +102,8 @@ export default function HomePage() {
       setScenario(analyzeOutput.scenario);
       toast({ title: "Scénario Analysé", description: "Un scénario a été généré pour votre animation." });
       
-      // Step 4: Create Animation
-      setCurrentStep(4);
+      // Step 5: Create Animation
+      setCurrentStep(5);
       const animationInput: CreateAnimationInput = {
         characterDataUri: isolateOutput.isolatedCharacterDataUri,
         backgroundDataUri: isolateOutput.completedBackgroundDataUri,
@@ -104,14 +112,14 @@ export default function HomePage() {
       const animationOutput: CreateAnimationOutput = await createAnimation(animationInput);
       setAnimationUri(animationOutput.animationDataUri);
       
-      setCurrentStep(5); // Done
+      setCurrentStep(6); // Done
       toast({ title: "Animation Créée !", description: "Votre œuvre d'art est maintenant animée.", variant: "default" });
 
     } catch (error: any) {
       console.error("Erreur durant le processus d'animation:", error);
       const message = error.message || "Une erreur inconnue est survenue.";
       setErrorMessage(message);
-      setCurrentStep(6); // Error step
+      setCurrentStep(7); // Error step
       toast({
         title: "Erreur de Traitement",
         description: message,
@@ -122,7 +130,7 @@ export default function HomePage() {
     }
   };
 
-  const progressValue = currentStep > 1 && currentStep < 5 ? ((currentStep - 1) / 3) * 100 : (currentStep === 5 || currentStep === 6 ? 100 : 0);
+  const progressValue = currentStep > 1 && currentStep < 6 ? ((currentStep - 1) / 4) * 100 : (currentStep === 6 || currentStep === 7 ? 100 : 0);
 
   return (
     <>
@@ -157,7 +165,7 @@ export default function HomePage() {
               </>
             )}
 
-            {(currentStep >= 2 && currentStep < 5 && !animationUri) && (
+            {(currentStep >= 2 && currentStep < 6 && !animationUri) && (
               <ProcessVisualizer
                 currentStep={currentStep}
                 steps={PROCESS_STEPS_CONFIG}
@@ -170,7 +178,7 @@ export default function HomePage() {
               />
             )}
             
-            {currentStep === 5 && animationUri && scenario && (
+            {currentStep === 6 && animationUri && scenario && (
               <AnimationResult
                 animationUri={animationUri}
                 scenario={scenario}
@@ -178,7 +186,7 @@ export default function HomePage() {
               />
             )}
 
-            {currentStep === 6 && ( // Error state display
+            {currentStep === 7 && ( // Error state display
                <div className="w-full flex flex-col items-center space-y-4">
                 <ProcessVisualizer
                     currentStep={currentStep}
@@ -200,12 +208,13 @@ export default function HomePage() {
 
         <section className="mb-12">
           <h2 className="text-3xl font-semibold text-center mb-8">Comment ça fonctionne ?</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-1 lg:grid-cols-5 gap-6">
             {[
               { icon: UploadCloud, title: "1. Téléchargez votre image", description: "Importez une image artistique contenant un personnage et son arrière-plan." },
-              { icon: Scissors, title: "2. Séparation Magique", description: "Notre IA isole le personnage et complète l'arrière-plan." },
-              { icon: Sparkles, title: "3. Analyse Créative", description: "Un scénario logique est créé pour lier personnage et décor." },
-              { icon: Film, title: "4. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments." },
+              { icon: Wand2, title: "2. Amélioration IA", description: "Notre IA améliore la qualité de votre image, la débruite et la rend plus réaliste." },
+              { icon: Scissors, title: "3. Séparation Magique", description: "Notre IA isole le personnage et complète l'arrière-plan." },
+              { icon: Sparkles, title: "4. Analyse Créative", description: "Un scénario logique est créé pour lier personnage et décor." },
+              { icon: Film, title: "5. Animation Instantanée", description: "Une animation de 5 secondes prend vie, fusionnant tous les éléments." },
             ].map((step, idx) => (
               <Card key={idx} className="text-center shadow-lg hover:shadow-xl transition-shadow">
                 <CardHeader>

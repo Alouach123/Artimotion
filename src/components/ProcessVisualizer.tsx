@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -41,13 +42,14 @@ export function ProcessVisualizer({
 }: ProcessVisualizerProps) {
   
   const activeStepDetails = steps.find(s => s.id === currentStep);
+  const processingSteps = steps.filter(s => s.id >= 2 && s.id < (steps.length - 2)); // Adjusted to dynamically get processing steps
 
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
         <CardTitle className="text-xl flex items-center">
-          {currentStep === 6 ? <AlertTriangle className="w-6 h-6 mr-2 text-destructive" /> : 
-           currentStep === 5 ? <CheckCircle2 className="w-6 h-6 mr-2 text-green-500" /> : 
+          {currentStep === (steps.length - 1) ? <AlertTriangle className="w-6 h-6 mr-2 text-destructive" /> : // Error step is now the last one
+           currentStep === (steps.length - 2) ? <CheckCircle2 className="w-6 h-6 mr-2 text-green-500" /> : // Done step is second to last
            <Loader2 className="w-6 h-6 mr-2 animate-spin text-primary" />}
           Progression de l'animation
         </CardTitle>
@@ -57,13 +59,13 @@ export function ProcessVisualizer({
         <Progress value={progressValue} className="w-full h-3" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 text-sm">
-          {steps.filter(s => s.id > 1 && s.id < 5).map((step, index) => ( // Only show processing steps
+          {processingSteps.map((step) => (
             <div key={step.id} className={`flex items-center p-2 rounded-md ${currentStep === step.id ? 'bg-primary/10 font-semibold' : currentStep > step.id ? 'opacity-70' : 'opacity-50'}`}>
                 <StepIcon 
                     icon={step.icon} 
                     isActive={currentStep === step.id && !errorMessage}
                     isCompleted={currentStep > step.id && !errorMessage}
-                    isError={currentStep === step.id && !!errorMessage}
+                    isError={currentStep === step.id && !!errorMessage && step.id !== (steps.length - 1)} // Don't show error icon for the actual error step text
                 />
               <span>{step.name}</span>
             </div>
