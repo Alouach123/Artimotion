@@ -25,7 +25,7 @@ const PROCESS_STEPS_CONFIG: ExtendedProcessStep[] = [
   { id: 3, name: "Isolation du Personnage", statusText: "L'IA isole le personnage et l'arrière-plan...", icon: Scissors, stage: 'processing' },
   { id: 4, name: "Analyse de la Scène", statusText: "L'IA analyse la scène pour une histoire captivante...", icon: Sparkles, stage: 'processing' },
   { id: 5, name: "Création de l'Animation", statusText: "L'IA confectionne votre animation...", icon: Film, stage: 'processing' },
-  { id: 6, name: "Finalisation", statusText: "Finalisation de l'animation...", icon: Wand2, stage: 'processing' }, // Nouvelle étape de finalisation
+  { id: 6, name: "Finalisation", statusText: "Finalisation de l'animation...", icon: Wand2, stage: 'processing' },
   { id: 7, name: "Animation Prête !", statusText: "Votre animation est terminée !", icon: CheckCircle2, stage: 'done' },
   { id: 8, name: "Erreur", statusText: "Une erreur est survenue.", icon: AlertTriangle, stage: 'error' },
 ];
@@ -55,11 +55,10 @@ export default function CreateAnimationPage() {
   const [failedStepId, setFailedStepId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [resetFileUpload, setResetFileUpload] = useState<boolean>(false);
   const [progress, setProgress] = useState(0);
+  const [fileUploadKey, setFileUploadKey] = useState(0); // Key for resetting FileUpload
 
   const { toast } = useToast();
-  // Using a ref for AbortController as it doesn't need to trigger re-renders
   const abortControllerRef = useRef<AbortController | null>(null);
 
 
@@ -75,20 +74,18 @@ export default function CreateAnimationPage() {
     setIsLoading(false);
     setErrorMessage(null);
     setProgress(0);
-    setResetFileUpload(true); 
+    setFileUploadKey(prevKey => prevKey + 1); // Increment key to reset FileUpload
     if (abortControllerRef.current) {
-      abortControllerRef.current.abort(); // Abort any ongoing request
+      abortControllerRef.current.abort();
       abortControllerRef.current = null;
     }
-    setTimeout(() => setResetFileUpload(false), 0);
-  }, []);
+  }, []); // No dependencies, it's a stable function
 
   const handleFileSelect = (file: File, dataUri: string) => {
-    resetState();
+    resetState(); // Resets other states and increments fileUploadKey
     setUploadedFile(file);
     setOriginalImageDataUri(dataUri);
     setCurrentStepId(READY_TO_ANIMATE_STEP_ID); 
-    setResetFileUpload(false);
   };
   
   const startProcessing = async () => {
@@ -108,7 +105,6 @@ export default function CreateAnimationPage() {
     try {
       // Step 1 of processing: Amélioration IA
       setCurrentStepId(ENHANCEMENT_STEP_ID);
-      // TODO: Implement actual AI call for image enhancement
       await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate AI processing time
       // if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
       toast({ title: "Image Améliorée", description: "La qualité de l'image a été améliorée (simulation)." });
@@ -201,7 +197,7 @@ export default function CreateAnimationPage() {
       description: "L'animation a été annulée par l'utilisateur.",
       variant: "destructive",
     });
-  }, [currentStepId, toast]);
+  }, [currentStepId, toast]); // Added toast to dependencies
 
   const showProcessVisualizer = (isLoading && !animationUri && !errorMessage) || (currentStepId === ERROR_STEP_ID && errorMessage !== null);
   const showAnimationResult = currentStepId === DONE_STEP_ID && animationUri && !errorMessage;
@@ -229,15 +225,19 @@ export default function CreateAnimationPage() {
         <CardContent className="flex flex-col items-center space-y-6 p-6">
           {showFileUpload && (
             <div className="w-full max-w-lg flex flex-col items-center space-y-6">
-              <FileUpload onFileSelect={handleFileSelect} disabled={isLoading} reset={resetFileUpload} />
+              <FileUpload 
+                key={fileUploadKey} // Add key prop here
+                onFileSelect={handleFileSelect} 
+                disabled={isLoading} 
+              />
               {currentStepId === READY_TO_ANIMATE_STEP_ID && originalImageDataUri && !isLoading && (
                 <div className="text-center space-y-4">
                    <div className="relative w-48 h-48 mx-auto">
                     <Image 
                       src={originalImageDataUri} 
                       alt="Aperçu de l'image téléversée" 
-                      fill // Changed from layout="fill"
-                      objectFit="contain" 
+                      fill 
+                      style={{ objectFit: 'contain' }}
                       className="rounded-md border shadow-sm"
                       data-ai-hint="art piece"
                     />
@@ -264,7 +264,7 @@ export default function CreateAnimationPage() {
                     completedBackgroundUri={completedBackgroundUri}
                     scenario={scenario}
                 />
-                {isLoading && !animationUri && !errorMessage && (
+                {isLoading && !animationUri && !errorMessage && currentStepId !== ERROR_STEP_ID && (
                   <Button onClick={handleStopProcessing} variant="destructive" size="lg" className="mt-6 w-full sm:w-auto">
                     <XCircle className="mr-2 h-5 w-5" />
                     Arrêter le processus
@@ -294,5 +294,3 @@ export default function CreateAnimationPage() {
     </main>
   );
 }
-
-    

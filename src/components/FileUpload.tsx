@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useCallback, useEffect } from 'react';
@@ -11,10 +12,10 @@ import { useToast } from '@/hooks/use-toast';
 interface FileUploadProps {
   onFileSelect: (file: File, dataUri: string) => void;
   disabled?: boolean;
-  reset?: boolean; 
+  // reset prop is no longer needed
 }
 
-export function FileUpload({ onFileSelect, disabled, reset }: FileUploadProps) {
+export function FileUpload({ onFileSelect, disabled }: FileUploadProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -57,12 +58,7 @@ export function FileUpload({ onFileSelect, disabled, reset }: FileUploadProps) {
     }
   }, [onFileSelect, toast]);
 
-  useEffect(() => {
-    if (reset) {
-      setSelectedFile(null);
-      setPreviewUrl(null);
-    }
-  }, [reset]);
+  // useEffect for reset is removed as the key prop will handle remounting
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -95,7 +91,13 @@ export function FileUpload({ onFileSelect, disabled, reset }: FileUploadProps) {
   const clearSelection = () => {
     setSelectedFile(null);
     setPreviewUrl(null);
-    // Also inform parent if needed, perhaps via a callback or by re-triggering onFileSelect with null
+    // Reset the input field value to allow re-selecting the same file
+    const fileInput = document.getElementById('file-upload-input') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    // Call onFileSelect with null to indicate clearing, if the parent needs to know
+    // onFileSelect(null, ''); // This might be needed depending on parent logic, but resetState handles it now.
   };
 
   return (
@@ -133,6 +135,7 @@ export function FileUpload({ onFileSelect, disabled, reset }: FileUploadProps) {
               width={300}
               height={300}
               className="rounded-md object-contain max-h-64 w-auto mx-auto"
+              data-ai-hint="uploaded image"
             />
             {!disabled && (
               <Button
