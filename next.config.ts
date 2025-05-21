@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https://',
         hostname: 'fr.muzeo.com',
         port: '',
         pathname: '/**',
@@ -55,6 +55,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'www.wga.hu', // Added this domain
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'youvecottmail.com',
         port: '',
         pathname: '/**',
       }

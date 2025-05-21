@@ -66,7 +66,7 @@ export default function HomePage() {
                   src={art.src}
                   alt={art.alt}
                   fill // Replaced layout="fill"
-                  objectFit="cover" // Replaced objectFit="cover"
+                  style={{objectFit:"cover"}} // Replaced objectFit="cover"
                   className="rounded-t-lg"
                   data-ai-hint={art.hint}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -132,13 +132,13 @@ export default function HomePage() {
             <h2 className="text-3xl font-semibold text-center mb-8">L'IA au Service de l'Art: Une Nouvelle Ère Créative</h2>
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <Image 
-                  src="https://placehold.co/800x600.png" 
-                  alt="Concept d'art fusionnant IA et techniques classiques" 
-                  width={800} 
-                  height={600} 
+                <Image
+                  src="https://youvecottmail.com/wp-content/uploads/2025/05/mvgwrjtfad-1200x686.jpg"
+                  alt="Concept d'art fusionnant IA et techniques classiques"
+                  width={1200}
+                  height={686}
                   className="rounded-lg shadow-xl object-cover"
-                  data-ai-hint="ai art concept"
+                  data-ai-hint="AI art"
                 />
               </div>
               <div className="space-y-4 text-muted-foreground">
