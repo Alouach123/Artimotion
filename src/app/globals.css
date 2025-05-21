@@ -128,3 +128,28 @@ body {
     flex-grow: 1;
   }
 }
+
+@layer components {
+  .carousel-container {
+    @apply w-full overflow-hidden relative py-4;
+  }
+  .carousel-strip {
+    @apply flex flex-nowrap animate-scroll-left;
+  }
+  .carousel-strip:hover {
+    animation-play-state: paused;
+  }
+  .carousel-image-wrapper {
+    @apply flex-shrink-0 mr-4; /* Adjust margin as needed */
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%); /* This should be -100% of the original content width to scroll one full set */
+    }
+  }
+}
+```

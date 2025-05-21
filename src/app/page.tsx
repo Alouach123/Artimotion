@@ -52,6 +52,39 @@ export default function HomePage() {
     { name: "Ludwig van Beethoven", src: "https://transcode-v2.app.engoo.com/image/fetch/f_auto,c_lfill,w_300,dpr_3/https://assets.app.engoo.com/images/1FBGLJLA1mTEKyeDMEvTeZ.jpeg", alt: "Portrait de Ludwig van Beethoven par Joseph Karl Stieler", hint: "beethoven portrait" },
   ];
 
+  const artExamplesRow1 = artExamples.slice(0, 6);
+  const artExamplesRow2 = artExamples.slice(6, 12);
+
+  const CarouselRow = ({ images, aspectRatioClass, animationDuration }: { images: typeof artExamplesRow1, aspectRatioClass: string, animationDuration: string }) => (
+    <div className="carousel-container my-4">
+      <div className="carousel-strip" style={{ animationDuration: animationDuration }}>
+        {[...images, ...images].map((art, index) => ( // Duplicate for seamless loop
+          <div key={`${art.name}-${index}`} className="carousel-image-wrapper w-64 md:w-72 lg:w-80"> {/* Adjust width as needed */}
+            <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out flex flex-col h-full">
+              <div className={`relative w-full ${aspectRatioClass}`}>
+                <Image
+                  src={art.src}
+                  alt={art.alt}
+                  fill // Replaced layout="fill"
+                  objectFit="cover" // Replaced objectFit="cover"
+                  className="rounded-t-lg"
+                  data-ai-hint={art.hint}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
+              <CardContent className="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-1">{art.name}</h3>
+                  <p className="text-muted-foreground text-sm">{art.alt}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="container mx-auto px-4 py-8">
@@ -147,26 +180,12 @@ export default function HomePage() {
         <section className="mb-12 py-12 bg-card rounded-lg shadow-md">
            <div className="container mx-auto px-6">
             <h2 className="text-3xl font-semibold text-center mb-10">Galerie d'Inspirations</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {artExamples.map((art, index) => (
-                <Card key={index} className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105 flex flex-col">
-                  <div className={`relative w-full ${index < 6 ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}>
-                    <Image 
-                      src={art.src} 
-                      alt={art.alt} 
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-t-lg"
-                      data-ai-hint={art.hint}
-                    />
-                  </div>
-                  <CardContent className="p-4 flex-grow">
-                    <h3 className="text-lg font-semibold text-foreground mb-1">{art.name}</h3>
-                    <p className="text-muted-foreground text-sm">{art.alt}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            {artExamplesRow1.length > 0 && (
+              <CarouselRow images={artExamplesRow1} aspectRatioClass="aspect-[4/5]" animationDuration="48s" />
+            )}
+            {artExamplesRow2.length > 0 && (
+              <CarouselRow images={artExamplesRow2} aspectRatioClass="aspect-[3/2]" animationDuration="48s" />
+            )}
             <div className="text-center mt-12">
               <Link href="/create-animation" passHref>
                 <Button size="lg" variant="default" className="text-lg px-8 py-6 shadow-md hover:shadow-lg transition-shadow bg-accent text-accent-foreground hover:bg-accent/90">
