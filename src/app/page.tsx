@@ -65,8 +65,8 @@ export default function HomePage() {
                 <Image
                   src={art.src}
                   alt={art.alt}
-                  fill // Replaced layout="fill"
-                  style={{objectFit:"cover"}} // Replaced objectFit="cover"
+                  fill
+                  style={{objectFit:"cover"}}
                   className="rounded-t-lg"
                   data-ai-hint={art.hint}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -159,7 +159,7 @@ export default function HomePage() {
         {/* Why Choose Artimotion Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-semibold text-center mb-10">Pourquoi choisir Artimotion ?</h2>
-          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
              {features.map((feature, idx) => (
               <Card key={idx} className="shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out transform hover:-translate-y-1 bg-card/80 backdrop-blur-sm border border-border hover:border-primary">
                  <CardHeader className="flex flex-row items-center gap-4 p-6">

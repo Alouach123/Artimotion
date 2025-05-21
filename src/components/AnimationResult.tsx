@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from 'next/image';
@@ -113,7 +114,7 @@ export function AnimationResult({ animationUri, scenario, onStartOver }: Animati
         <CardDescription>"{scenario}"</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center space-y-6">
-        <div className="w-full max-w-md aspect-video rounded-lg overflow-hidden shadow-inner bg-muted-foreground/10">
+        <div className="relative w-full max-w-md aspect-video rounded-lg overflow-hidden shadow-inner bg-muted-foreground/10">
           {isVideo ? (
             <video
               src={animationUri}
@@ -127,9 +128,9 @@ export function AnimationResult({ animationUri, scenario, onStartOver }: Animati
             <Image
               src={animationUri}
               alt="Animation générée"
-              width={500}
-              height={281} // Assuming 16:9 aspect ratio for 500 width
-              className="w-full h-full object-contain"
+              fill
+              style={{ objectFit: 'contain' }}
+              className="rounded-lg"
               data-ai-hint="animated scene"
               unoptimized={true} // Important for data URIs in next/image
             />
