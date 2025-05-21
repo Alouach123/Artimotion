@@ -9,27 +9,27 @@ body {
 @layer base {
   :root {
     --background: 0 0% 100%; /* White */
-    --foreground: 222 84% 4.9%; /* Dark Blue - Kept for general text */
+    --foreground: 220 60% 20%; /* Darker Blue for general text, adjusted from 222 84% 4.9% */
 
     --card: 0 0% 100%; /* White cards */
-    --card-foreground: 222 84% 4.9%; /* Dark Blue for card text */
+    --card-foreground: 220 60% 20%; /* Darker Blue for card text */
 
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 222 84% 4.9%; /* Dark Blue */
+    --popover-foreground: 220 60% 20%; /* Darker Blue */
 
     /* Primary will be Dark Blue */
-    --primary: 222 47.4% 11.2%; /* Dark Blue */
-    --primary-foreground: 210 40% 98%; /* Light text on Dark Blue */
+    --primary: 220 70% 45%; /* A rich, slightly desaturated blue */
+    --primary-foreground: 0 0% 100%; /* White text on Dark Blue */
 
     --secondary: 210 40% 96.1%; /* Light Grayish Blue */
-    --secondary-foreground: 222.2 47.4% 11.2%; /* Dark Blue Text */
+    --secondary-foreground: 220 70% 25%; /* Dark Blue Text */
 
     --muted: 210 40% 96.1%; /* Light Grayish Blue */
     --muted-foreground: 215.4 16.3% 46.9%; /* Grayer text */
 
     /* Accent is Yellow */
-    --accent: 48 100% 39%; /* Vibrant Yellow - rgb(200, 160, 0) */
-    --accent-foreground: 222 47.4% 11.2%; /* Dark Blue text for contrast on yellow */
+    --accent: 48 100% 39%; /* rgb(200, 160, 0) */
+    --accent-foreground: 0 0% 100%; /* White text for contrast on yellow */
 
     --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%; /* Light text for destructive */
@@ -48,29 +48,29 @@ body {
     --chart-5: 160 60% 45%; /* Teal/Greenish Blue (can be adjusted) */
     
     /* Sidebar variables (Light Theme) */
-    --sidebar-background: 222 47.4% 11.2%; /* Dark Blue for Sidebar */
+    --sidebar-background: 220 70% 20%; /* Darker Blue for Sidebar */
     --sidebar-foreground: 210 40% 98%; /* Light Gray text on Sidebar */
     --sidebar-primary: 48 100% 39%; /* Yellow for Sidebar Primary items */
-    --sidebar-primary-foreground: 222 84% 4.9%; /* Darker text for yellow */
+    --sidebar-primary-foreground: 220 60% 15%; /* Darker text for yellow */
     --sidebar-accent: 48 100% 39%; /* Yellow for Sidebar Accent */
-    --sidebar-accent-foreground: 222 84% 4.9%; /* Darker text for yellow accent */
+    --sidebar-accent-foreground: 220 60% 15%; /* Darker text for yellow accent */
     --sidebar-border: 220 40% 25%;
     --sidebar-ring: 48 100% 39%; /* Yellow */
   }
 
   .dark {
-    --background: 222 84% 4.9%; /* Very Dark Blue */
-    --foreground: 210 40% 98%; /* Very Light Grey/Almost White */
+    --background: 220 70% 12%; /* Very Dark Blue */
+    --foreground: 210 40% 96%; /* Very Light Grey/Almost White */
 
-    --card: 222 47.4% 11.2%; /* Dark Blue for cards */
+    --card: 220 70% 15%; /* Darker Blue for cards */
     --card-foreground: 210 40% 98%;
 
-    --popover: 222 84% 4.9%; 
+    --popover: 220 84% 4.9%; 
     --popover-foreground: 210 40% 98%;
 
     /* Primary is Yellow in dark mode for buttons etc. */
-    --primary: 48 100% 45%; /* Brighter Yellow */
-    --primary-foreground: 222 84% 4.9%; /* Very Dark Blue/Black for text on yellow */
+    --primary: 48 100% 42%; /* Brighter Yellow */
+    --primary-foreground: 220 50% 10%; /* Very Dark Blue/Black for text on yellow */
 
     --secondary: 217.2 32.6% 17.5%; /* Muted Dark Blue */
     --secondary-foreground: 210 40% 98%; /* Light Grey */
@@ -80,7 +80,7 @@ body {
 
     /* Accent is Yellow for branding and logo in dark mode */
     --accent: 48 100% 45%; /* Brighter Yellow */
-    --accent-foreground: 222 84% 4.9%; /* Dark text for contrast on yellow */
+    --accent-foreground: 220 50% 10%; /* Dark text for contrast on yellow */
 
     --destructive: 0 62.8% 30.6%; 
     --destructive-foreground: 0 0% 98%;
@@ -97,12 +97,12 @@ body {
     --chart-5: 0 0% 80%; /* Light Grey (can be adjusted) */
 
     /* Sidebar variables - Dark Theme */
-    --sidebar-background: 222 80% 8%; /* Even Darker Blue for Sidebar */
+    --sidebar-background: 220 70% 10%; /* Even Darker Blue for Sidebar */
     --sidebar-foreground: 210 40% 90%; /* Light Gray text on Sidebar */
     --sidebar-primary: 48 100% 42%; /* Brighter Yellow for Sidebar Primary items */
-    --sidebar-primary-foreground: 222 84% 4.9%; /* Darker text for yellow */
+    --sidebar-primary-foreground: 220 60% 15%; /* Darker text for yellow */
     --sidebar-accent: 48 100% 45%; /* Brighter Yellow for Sidebar Accent */
-    --sidebar-accent-foreground: 222 84% 4.9%;
+    --sidebar-accent-foreground: 220 60% 15%;
     --sidebar-border: 220 40% 20%;
     --sidebar-ring: 48 100% 45%; /* Brighter Yellow */
   }
@@ -143,13 +143,16 @@ body {
     @apply flex-shrink-0 mr-4; /* Adjust margin as needed */
   }
 
+  /*
+  This @keyframes block is removed because it's already defined in tailwind.config.ts
+  and applied via the animate-scroll-left utility class.
   @keyframes scroll-left {
     0% {
       transform: translateX(0%);
     }
     100% {
-      transform: translateX(-100%); /* This should be -100% of the original content width to scroll one full set */
+      transform: translateX(-100%);
     }
   }
+  */
 }
-```
