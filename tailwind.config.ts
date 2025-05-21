@@ -83,15 +83,15 @@ export default {
   					height: '0'
   				}
   			},
-           'scroll-left': { // Added for carousel
+           'scroll-left': {
             '0%': { transform: 'translateX(0)' },
-            '100%': { transform: 'translateX(-100%)' }, // -100% of the original content width to scroll one full set
+            '100%': { transform: 'translateX(-100%)' },
           },
-  		}, // Added missing comma here
+  		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-        'scroll-left': 'scroll-left linear infinite', // Added for carousel
+        'scroll-left': 'scroll-left 48s linear infinite', // Added default duration
   		}
   	}
   },

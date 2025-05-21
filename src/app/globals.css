@@ -29,7 +29,7 @@ body {
 
     /* Accent is Yellow */
     --accent: 48 100% 39%; /* rgb(200, 160, 0) */
-    --accent-foreground: 0 0% 100%; /* White text for contrast on yellow */
+    --accent-foreground: 220 50% 10%; /* Darker text for yellow accent */
 
     --destructive: 0 84.2% 60.2%; /* Red */
     --destructive-foreground: 0 0% 98%; /* Light text for destructive */
@@ -114,15 +114,11 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    /* Subtle gradient */
-    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05)); 
+    /* TEMPORARILY COMMENTED OUT FOR DEBUGGING THE BLACK SCREEN ISSUE */
+    /* background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05)); */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-  }
-  .dark body {
-     /* In dark mode, accent is yellow, so this gradient will use yellow */
-    background-image: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--accent) / 0.05));
   }
   main { 
     flex-grow: 1;
@@ -134,7 +130,7 @@ body {
     @apply w-full overflow-hidden relative py-4;
   }
   .carousel-strip {
-    @apply flex flex-nowrap animate-scroll-left;
+    @apply flex flex-nowrap animate-scroll-left; /* This will use the Tailwind defined animation */
   }
   .carousel-strip:hover {
     animation-play-state: paused;
@@ -142,17 +138,4 @@ body {
   .carousel-image-wrapper {
     @apply flex-shrink-0 mr-4; /* Adjust margin as needed */
   }
-
-  /*
-  This @keyframes block is removed because it's already defined in tailwind.config.ts
-  and applied via the animate-scroll-left utility class.
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  */
 }
